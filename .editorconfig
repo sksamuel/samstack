@@ -1,0 +1,17 @@
+root = true
+
+[*]
+
+indent_style = space
+indent_size = 3
+max_line_length = 120
+
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.{java, kt}]
+wildcard_import_limit = 999
+ij_kotlin_name_count_to_use_star_import = 999
+ij_kotlin_name_count_to_use_star_import_for_members = 999
+ij_java_class_count_to_use_import_on_demand = 999
+
