@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+   <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+      <encoder>
+         <pattern>[%date] %-5level [%thread]: %message%n</pattern>
+      </encoder>
+   </appender>
+   <root level="INFO">
+      <appender-ref ref="CONSOLE"/>
+      <appender-ref ref="ROLLINGFILE"/>
+   </root>
+   <logger name="org.apache.kafka" level="WARN"/>
+   <logger name="com.github.dockerjava" level="WARN"/>
+</configuration>
