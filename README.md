@@ -9,7 +9,7 @@ that means), but simply that it works for me and has seen success at several com
 I am a _mild_ functional programming advocate, and my viewpoints are influenced by functional programming,
 but try to avoid the more advanced FP features that don't translate well to Kotlin.
 
-## Tenets
+## Opinions
 
 * No dependency injection. You simply do not need it.
    * It is trivial to pass dependencies through the constructor. Services should be small enough that you don't have
@@ -33,6 +33,10 @@ but try to avoid the more advanced FP features that don't translate well to Kotl
      bespoke.
    * A good rule of thumb in my opinion is, if you have an implementation of an interface called `MyInterfaceImpl` then
      you don't need the interface because you have no natural name for the implementation.
+
+* Avoid ORMs
+  * Unless you have a ton of CRUD to write, it's easier to just write SQL by hand.
+  * Spring JDBC Template is a simple set of helpers around JDBC calls.
 
 ## Libraries
 
@@ -61,6 +65,8 @@ but try to avoid the more advanced FP features that don't translate well to Kotl
   validate" approach.
 * [TestContainers](https://www.testcontainers.org) - Creates disposable containers for tests, so you don't need to mock
   database code, because you can test against the real thing.
+* [Flyway]() - Versioned database migrations, that you can also apply to your tests.
+* [Spring JDBC Template]() - Small set of helpers for working with JDBC calls.
 
 ## Structure
 
