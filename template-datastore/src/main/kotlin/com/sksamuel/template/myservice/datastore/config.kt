@@ -1,4 +1,4 @@
-package com.grindr.myservice.datastore
+package com.sksamuel.template.myservice.datastore
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
