@@ -8,7 +8,7 @@ buildscript {
 plugins {
    id("java")
    id("java-library")
-   kotlin("jvm").version("1.6.21")
+   kotlin("jvm")
 }
 
 group = "com.sksamuel.template"
@@ -26,36 +26,36 @@ allprojects {
 
       // base kotlin libraries
       api(kotlin("stdlib-jdk8"))
-      implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
-      implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.1")
+      implementation(KotlinX.coroutines.core)
+      implementation(KotlinX.coroutines.jdk8)
 
       // metrics
-      implementation("io.micrometer:micrometer-registry-datadog:1.8.5")
+      implementation("io.micrometer:micrometer-registry-datadog:_")
 
       // fp
-      implementation("com.sksamuel.tabby:tabby-fp:2.0.17")
+      implementation("com.sksamuel.tabby:tabby-fp:_")
 
       // logging
-      implementation("ch.qos.logback:logback-classic:1.2.11")
-      implementation("org.slf4j:slf4j-api:1.7.36")
-      implementation("io.github.microutils:kotlin-logging:2.1.21")
+      implementation("ch.qos.logback:logback-classic:_")
+      implementation("org.slf4j:slf4j-api:_")
+      implementation("io.github.microutils:kotlin-logging:_")
 
       // kotest framework and assertions
-      testImplementation("io.kotest:kotest-framework-datatest:5.3.0")
-      testImplementation("io.kotest:kotest-runner-junit5:5.3.0")
-      testImplementation("io.kotest:kotest-assertions-core:5.3.0")
-      testImplementation("io.kotest:kotest-assertions-json:5.3.0")
-      testImplementation("io.kotest:kotest-property:5.3.0")
+      testImplementation(Testing.kotest.framework.datatest)
+      testImplementation(Testing.kotest.runner.junit5)
+      testImplementation(Testing.kotest.assertions.core)
+      testImplementation(Testing.kotest.assertions.json)
+      testImplementation(Testing.kotest.property)
 
       // test containers
-      testImplementation("org.testcontainers:mysql:1.17.1")
-      testImplementation("org.testcontainers:rabbitmq:1.17.1")
-      testImplementation("io.kotest.extensions:kotest-extensions-testcontainers:1.3.3")
-      testImplementation("io.kotest.extensions:kotest-extensions-wiremock:1.0.3")
+      testImplementation("org.testcontainers:mysql:_")
+      testImplementation("org.testcontainers:rabbitmq:_")
+      testImplementation(Testing.kotestExtensions.testContainers)
+      testImplementation(Testing.kotestExtensions.wiremock)
 
       // ktor testing
-      testImplementation("io.ktor:ktor-server-test-host:2.0.0")
-      testImplementation("io.kotest.extensions:kotest-assertions-ktor:1.0.3")
+      testImplementation(Ktor.server.testHost)
+      testImplementation("io.kotest.extensions:kotest-assertions-ktor:_")
    }
 
    // configure kotest to run
