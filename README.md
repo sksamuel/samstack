@@ -35,38 +35,41 @@ but try to avoid the more advanced FP features that don't translate well to Kotl
      you don't need the interface because you have no natural name for the implementation.
 
 * Avoid ORMs
-  * Unless you have a ton of CRUD to write, it's easier to just write SQL by hand.
-  * Spring JDBC Template is a simple set of helpers around JDBC calls.
+   * Unless you have a ton of CRUD to write, it's easier to just write SQL by hand.
+   * Spring JDBC Template is a simple set of helpers around JDBC calls.
+* Don't use Strings for all your types
+   * Avoid so called stringy-typed development.
 
 ## Libraries
 
 * Kotlin - Running the latest Kotlin release.
-* [ktor](https://ktor.io/) - a Jetbrains Kotlin based HTTP framework that natively supports coroutines. Provides
+* [ktor](https://ktor.io/) a Jetbrains Kotlin based HTTP framework that natively supports coroutines. Provides
   http-as-a-function (almost), and a great in-memory test server. Lacks swagger integration.
-* [Hoplite](https://github.com/sksamuel/hoplite) - a Kotlin data-class-as-config loader that provides cascading
+* [Hoplite](https://github.com/sksamuel/hoplite) a Kotlin data-class-as-config loader that provides cascading
   fallback of config files. Config is loaded in regular data classes that you define and can pass about. This allows for
   easy testing, as you can provide test-time values by simply creating instances of those data classes.
-* [Kotest](https://github.com/kotest/kotest) - Kotlin test framework that supports nested test layout, coroutines,
+* [Kotest](https://github.com/kotest/kotest) Kotlin test framework that supports nested test layout, coroutines,
   idiomatic Kotlin assertions, test-container extensions, property testing, data driven testing, non-deterministic
   helpers, and more.
-* [Micrometer](https://micrometer.io) - Metrics collection with integration with datadog / grafana, etc and most Java
+* [Micrometer](https://micrometer.io) Metrics collection with integration with datadog / grafana, etc and most Java
   libraries come with Micrometer adapters to collect metrics.
   many/most Java libraries.
-* [Hikari](https://github.com/brettwooldridge/HikariCP) - High performance and robust JDBC pooling library. The go-to
+* [Hikari](https://github.com/brettwooldridge/HikariCP) High performance and robust JDBC pooling library. The go-to
   JVM based connection pool library in 2022.
 * [Tabby](https://github.com/sksamuel/tabby) - a tiny functional programming accessory kit. Essentially a set of
   extension functions for `Result` that help fill in the gaps on Result.
 * [Kotlin Logging](https://github.com/MicroUtils/kotlin-logging) - a simple project that wraps slf4j but makes it easier
   to define a kotlin logger as a top level function.
 * [Logback](https://logback.qos.ch/) - a simple alternative to log4j.
-* [Cohort](https://github.com/sksamuel/cohort) - A spring-actuator style plugin for Ktor. Useful for probes for
+* [Cohort](https://github.com/sksamuel/cohort) A spring-actuator style plugin for Ktor. Useful for probes for
   kubernetes services.
-* [Princeps](https://github.com/sksamuel/princeps) - A validation library for Kotlin that takes the "parse don't
+* [Princeps](https://github.com/sksamuel/princeps) A validation library for Kotlin that takes the "parse don't
   validate" approach.
-* [TestContainers](https://www.testcontainers.org) - Creates disposable containers for tests, so you don't need to mock
+* [TestContainers](https://www.testcontainers.org) Creates disposable containers for tests, so you don't need to mock
   database code, because you can test against the real thing.
-* [Flyway]() - Versioned database migrations, that you can also apply to your tests.
-* [Spring JDBC Template]() - Small set of helpers for working with JDBC calls.
+* [Flyway](https://flywaydb.org/) Versioned database migrations, that you can also apply to your tests.
+* [Spring JDBC Template](https://docs.spring.io/spring-framework/docs/current/javadoc-api/index.html?org/springframework/jdbc/core/JdbcTemplate.html)
+  Small set of helpers for working with JDBC calls.
 
 ## Structure
 
