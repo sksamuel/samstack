@@ -4,7 +4,6 @@ plugins {
 
 dependencies {
    api(project(":template-domain"))
-   api("org.springframework:spring-jdbc:5.3.19")
-   api("org.postgresql:postgresql:42.3.4")
-   api("com.zaxxer:HikariCP:5.0.1")
+   implementation("io.ktor:ktor-client-cio:2.0.1")
+   implementation("io.ktor:ktor-client-encoding:2.0.1")
 }
