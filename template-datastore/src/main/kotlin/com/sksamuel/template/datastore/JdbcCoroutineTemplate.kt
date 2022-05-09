@@ -1,4 +1,4 @@
-package com.sksamuel.template.myservice.datastore
+package com.sksamuel.template.datastore
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

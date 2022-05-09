@@ -1,4 +1,4 @@
-package com.sksamuel.template.myservice.datastore
+package com.sksamuel.template.datastore
 
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
@@ -37,6 +37,7 @@ fun createDataSource(config: DatabaseConfig, registry: MeterRegistry): DataSourc
    // default is 30 minutes
    hikariConfig.maxLifetime = config.maxLifetime.inWholeMilliseconds
 
+   // how long a connection is unused before being shut down
    hikariConfig.idleTimeout = config.idleTimeout.inWholeMilliseconds
 
    // these are properties on the underlying JDBC connection
@@ -44,6 +45,8 @@ fun createDataSource(config: DatabaseConfig, registry: MeterRegistry): DataSourc
    hikariConfig.addDataSourceProperty("prepStmtCacheSize", config.prepStmtCacheSize)
    hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit", config.prepStmtCacheSqlLimit)
 
+   // in systems with multiple datasources, like readers and writers, can be useful to give
+   // them a name for metrics purposes
    if (config.poolName != null) hikariConfig.poolName = config.poolName
 
    // this wires in micrometer metrics

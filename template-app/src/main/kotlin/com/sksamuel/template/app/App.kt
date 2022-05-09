@@ -3,8 +3,8 @@ package com.sksamuel.template.app
 import com.sksamuel.hoplite.ConfigLoaderBuilder
 import com.sksamuel.hoplite.PropertySource
 import com.sksamuel.hoplite.aws.AwsSecretsManagerPreprocessor
-import com.sksamuel.template.myservice.datastore.BeerDatastore
-import com.sksamuel.template.myservice.datastore.createDataSource
+import com.sksamuel.template.datastore.BeerDatastore
+import com.sksamuel.template.datastore.createDataSource
 import com.sksamuel.template.services.BeerService
 import kotlinx.coroutines.DEBUG_PROPERTY_NAME
 import kotlinx.coroutines.DEBUG_PROPERTY_VALUE_ON

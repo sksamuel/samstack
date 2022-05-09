@@ -1,6 +1,6 @@
 package com.sksamuel.template.app
 
-import com.sksamuel.template.myservice.datastore.DatabaseConfig
+import com.sksamuel.template.datastore.DatabaseConfig
 
 /**
  * [Config] models the values from the config files.
@@ -21,7 +21,7 @@ import com.sksamuel.template.myservice.datastore.DatabaseConfig
  *
  */
 data class Config(
-  val port: Int,
-  val datadog: DatadogConfig,
-  val db: DatabaseConfig,
+   val port: Int,
+   val datadog: DatadogConfig,
+   val db: DatabaseConfig,
 )
