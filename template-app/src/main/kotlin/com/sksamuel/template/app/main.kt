@@ -20,6 +20,7 @@ private val logger = KotlinLogging.logger { }
 
 /**
  * In JVM apps, the main method is the entry point into the program.
+ * Obviously printing out an ascii art banner is the most important part of any application.
  */
 fun main() {
    logger.info(
@@ -34,7 +35,7 @@ fun main() {
    )
 
 //   val shutdownHook = EngineShutdownHook(10.seconds, 10.seconds, 30.seconds)
-   val server = embeddedServer(Netty, port = Environment.config.port) {
+   val server = embeddedServer(Netty, port = App.config.port) {
       install(Compression)
       install(ContentNegotiation) { jackson() }
       install(IgnoreTrailingSlash)
@@ -52,7 +53,7 @@ fun main() {
       // create your http modules here, passing in dependencies from the context object.
       // each module can be a set of related endpoints and plugins that you can easily test.
       // you may only have a single module for your entire app.
-      module()
+      module(App.beerService)
    }
 //   shutdownHook.setEngine(server)
    server.start(true)
