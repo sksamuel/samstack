@@ -2,6 +2,7 @@ package com.sksamuel.template.app
 
 import com.sksamuel.cohort.HealthCheckRegistry
 import com.sksamuel.cohort.ktor.Cohort
+import com.sksamuel.cohort.ktor.EngineShutdownHook
 import com.sksamuel.cohort.threads.ThreadDeadlockHealthCheck
 import com.sksamuel.template.endpoints.module
 import io.ktor.serialization.jackson.jackson
@@ -34,7 +35,7 @@ fun main() {
 """
    )
 
-//   val shutdownHook = EngineShutdownHook(10.seconds, 10.seconds, 30.seconds)
+   val engineShutdownHook = EngineShutdownHook(prewait = 10.seconds, gracePeriod = 10.seconds, timeout = 30.seconds)
    val server = embeddedServer(Netty, port = App.config.port) {
       install(Compression)
       install(ContentNegotiation) { jackson() }
@@ -43,9 +44,10 @@ fun main() {
       install(Cohort) {
          this.gc = true
          this.jvmInfo = true
-         this.operatingSystem = true
+         this.sysprops = true
          this.threadDump = true
          this.heapDump = true
+         onShutdown(engineShutdownHook)
          healthcheck("/health", HealthCheckRegistry(Dispatchers.Default) {
             register(ThreadDeadlockHealthCheck(2), 15.seconds)
          })
@@ -55,6 +57,6 @@ fun main() {
       // you may only have a single module for your entire app.
       module(App.beerService)
    }
-//   shutdownHook.setEngine(server)
+   engineShutdownHook.setEngine(server)
    server.start(true)
 }
