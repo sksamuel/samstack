@@ -26,8 +26,12 @@ private val logger = KotlinLogging.logger { }
 data class DatadogHttpConfig(
    val enabled: Boolean,
    val apiKey: String,
+   // The Datadog application key. This is only required if you care for metadata like base units, description,
+   // and meter type to be published to Datadog.
+   val applicationKey: String?,
 )
 
+// these can be removed if you are using APMs from a JVM agent
 private val metrics = listOf(
    ClassLoaderMetrics(),
    DiskSpaceMetrics(File("/")),
@@ -47,6 +51,7 @@ fun createMeterRegistry(config: DatadogHttpConfig, env: String, service: String)
    // creates a datadog http based registry
    val registry = DatadogMeterRegistry(object : DatadogConfig {
       override fun apiKey(): String = config.apiKey
+      override fun applicationKey(): String? = config.applicationKey
       override fun batchSize(): Int = 1000
       override fun enabled(): Boolean = config.enabled
       override fun hostTag(): String = "hostname"
