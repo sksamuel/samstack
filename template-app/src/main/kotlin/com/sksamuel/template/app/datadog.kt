@@ -14,6 +14,7 @@ import io.micrometer.core.instrument.binder.system.DiskSpaceMetrics
 import io.micrometer.core.instrument.binder.system.FileDescriptorMetrics
 import io.micrometer.core.instrument.binder.system.ProcessorMetrics
 import io.micrometer.core.instrument.binder.system.UptimeMetrics
+import io.micrometer.datadog.DatadogConfig
 import io.micrometer.datadog.DatadogMeterRegistry
 import mu.KotlinLogging
 import java.io.File
@@ -22,7 +23,7 @@ import java.time.Duration
 
 private val logger = KotlinLogging.logger { }
 
-data class DatadogConfig(
+data class DatadogHttpConfig(
    val enabled: Boolean,
    val apiKey: String,
 )
@@ -41,10 +42,10 @@ private val metrics = listOf(
    UptimeMetrics(),
 )
 
-fun createMeterRegistry(config: DatadogConfig, env: String, service: String): MeterRegistry {
+fun createMeterRegistry(config: DatadogHttpConfig, env: String, service: String): MeterRegistry {
 
    // creates a datadog http based registry
-   val registry = DatadogMeterRegistry(object : io.micrometer.datadog.DatadogConfig {
+   val registry = DatadogMeterRegistry(object : DatadogConfig {
       override fun apiKey(): String = config.apiKey
       override fun batchSize(): Int = 1000
       override fun enabled(): Boolean = config.enabled

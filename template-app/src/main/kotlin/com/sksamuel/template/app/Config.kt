@@ -22,6 +22,6 @@ import com.sksamuel.template.datastore.DatabaseConfig
  */
 data class Config(
    val port: Int,
-   val datadog: DatadogConfig,
+   val datadog: DatadogHttpConfig,
    val db: DatabaseConfig,
 )
