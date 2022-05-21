@@ -1,0 +1,6 @@
+db:
+   url: jdbc:postgres://hostname:5432/databasename
+   username: "root"
+   password: "letmein"
+   minimumIdle: 8
+   maximumPoolSize: 16

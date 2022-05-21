@@ -1,6 +1,5 @@
 plugins {
    kotlin("jvm")
-   application
    id("com.bmuschko.docker-java-application")
 }
 
