@@ -21,7 +21,7 @@ data class DatabaseConfig(
    val poolName: String?,
 )
 
-fun createDataSource(config: DatabaseConfig, registry: MeterRegistry): DataSource {
+fun createDataSource(config: DatabaseConfig, registry: MeterRegistry?): DataSource {
    val hikariConfig = HikariConfig()
 
    hikariConfig.jdbcUrl = config.url
