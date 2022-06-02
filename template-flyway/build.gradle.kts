@@ -1,16 +1,17 @@
 plugins {
    kotlin("jvm")
-   id("com.bmuschko.docker-java-application")
+   id("com.bmuschko.docker-java-application").version("7.3.0")
 }
 
 dependencies {
    api(project(":template-datastore"))
-   api("org.flywaydb:flyway-core:_")
+   api(libs.flyway.core)
 
    // for data class based configuration
-   api("com.sksamuel.hoplite:hoplite-core:_")
-   api("com.sksamuel.hoplite:hoplite-yaml:_")
-   api("com.sksamuel.hoplite:hoplite-aws:_")
+   api(libs.bundles.hoplite)
+   api(libs.bundles.logging)
+
+   testImplementation(libs.bundles.kotest)
 }
 
 docker {

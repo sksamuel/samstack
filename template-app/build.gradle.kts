@@ -1,22 +1,20 @@
 plugins {
    kotlin("jvm")
-   id("com.bmuschko.docker-java-application")
+   id("com.bmuschko.docker-java-application").version("7.3.0")
 }
 
 dependencies {
-   implementation(project(":template-datastore"))
-   implementation(project(":template-services"))
-   implementation(project(":template-endpoints"))
+   api(project(":template-datastore"))
+   api(project(":template-services"))
+   api(project(":template-endpoints"))
 
-   implementation("io.ktor:ktor-server-compression:_")
+   api(libs.bundles.ktor.server)
+   api(libs.bundles.cohort)
 
-   implementation("com.sksamuel.cohort:cohort-core:_")
-   implementation("com.sksamuel.cohort:cohort-ktor2:_")
+   implementation(libs.micrometer.registry.datadog)
 
-   // for data class based configuration
-   api("com.sksamuel.hoplite:hoplite-core:_")
-   api("com.sksamuel.hoplite:hoplite-yaml:_")
-   api("com.sksamuel.hoplite:hoplite-aws:_")
+   api(libs.bundles.hoplite)
+   api(libs.bundles.logging)
 }
 
 docker {

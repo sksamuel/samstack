@@ -9,7 +9,8 @@ import io.ktor.server.routing.routing
 
 /**
  * Organize ktor apps into modules.
- * Each module contains a subset of endpoints and the module can be added to tests very easily.
+ *
+ * Each module contains a subset of endpoints and the module can be added to setup tests.
  */
 fun Application.module(service: BeerService) {
    // setup json marshalling - provide your own jackson mapper if you have custom jackson modules

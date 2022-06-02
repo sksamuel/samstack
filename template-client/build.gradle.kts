@@ -4,6 +4,6 @@ plugins {
 
 dependencies {
    api(project(":template-domain"))
-   implementation(Ktor.client.cio)
-   implementation(Ktor.client.encoding)
+   implementation(libs.bundles.ktor.client)
+   implementation(libs.bundles.logging)
 }

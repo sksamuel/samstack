@@ -4,7 +4,10 @@ plugins {
 
 dependencies {
    api(project(":template-domain"))
-   api("org.springframework:spring-jdbc:_")
-   api("org.postgresql:postgresql:_")
-   api("com.zaxxer:HikariCP:_")
+   api(libs.bundles.coroutines)
+   implementation(libs.bundles.logging)
+   api(libs.micrometer.registry.datadog)
+   api(libs.spring.jdbc)
+   api(libs.hikaricp)
+   api(libs.postgresql)
 }
