@@ -13,6 +13,7 @@ private val logger = KotlinLogging.logger { }
  * Loads config from each config file in turn, cascading values from top to bottom.
  * This means that values in earlier files take precedence over values in later files.
  *
+ * @param env value used to specify which environment file(s) to load, eg PROD or STAGING.
  * @return the constructed [Config] object.
  */
 fun config(env: String) = ConfigLoaderBuilder.default()

@@ -11,9 +11,9 @@ import com.zaxxer.hikari.HikariDataSource
 import io.micrometer.core.instrument.MeterRegistry
 
 /**
- * Creates all the dependencies used by this application and returns in a container [Dependencies] 'god' object.
+ * Creates all the dependencies used by this application and returns a container [Dependencies] 'god' object.
  *
- * Each managed resource is wrapped in a [Resource] object, and combined using the bind function,
+ * Each managed resource is wrapped in a [Resource] object, which are combined using the bind function,
  * so that they are all released gracefully together on shutdown.
  *
  * @param env the variable for the environment eg STAGING or PROD.
@@ -26,7 +26,7 @@ fun dependencies(env: String, serviceName: String, config: Config): Resource<Dep
    val registry = resource { createMeterRegistry(config.datadog, env, serviceName) }.release { it.close() }.bind()
    val ds = Resource.fromCloseable { createDataSource(config.db, registry) }.bind()
 
-   // unmanaged resources (ie no state requiring shut down)
+   // unmanaged resources (ie no state that requires shutting down)
    val beerDatastore = BeerDatastore(ds)
    val beerService = BeerService(beerDatastore)
 
