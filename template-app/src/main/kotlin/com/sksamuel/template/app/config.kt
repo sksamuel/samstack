@@ -5,6 +5,7 @@ import com.sksamuel.hoplite.PropertySource
 import com.sksamuel.hoplite.aws.AwsSecretsManagerPreprocessor
 import com.sksamuel.template.datastore.DatabaseConfig
 import mu.KotlinLogging
+import kotlin.time.Duration
 
 private val logger = KotlinLogging.logger { }
 
@@ -43,6 +44,13 @@ fun config(env: String) = ConfigLoaderBuilder.default()
  */
 data class Config(
    val port: Int,
+   val shutdown: ShutdownDurations,
    val datadog: DatadogHttpConfig,
    val db: DatabaseConfig,
+)
+
+data class ShutdownDurations(
+   val prewait: Duration,
+   val grace: Duration,
+   val timeout: Duration,
 )

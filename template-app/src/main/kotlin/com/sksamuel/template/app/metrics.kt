@@ -46,7 +46,13 @@ private val metrics = listOf(
    UptimeMetrics(),
 )
 
-fun createMeterRegistry(config: DatadogHttpConfig, env: String, service: String): MeterRegistry {
+/**
+ * Creates the Micrometer [MeterRegistry] backed by datadog collector.
+ *
+ * @param env the variable for the environment eg STAGING or PROD.
+ * @param serviceName a unique name for this service added as a tag
+ */
+fun createMeterRegistry(config: DatadogHttpConfig, env: String, serviceName: String): MeterRegistry {
 
    // creates a datadog http based registry
    val registry = DatadogMeterRegistry(object : DatadogConfig {
@@ -70,7 +76,7 @@ fun createMeterRegistry(config: DatadogHttpConfig, env: String, service: String)
    // tags we attach to all metrics
    // can add to expense by expanding out the total number of tags
    mapOf(
-      "service" to service,
+      "service" to serviceName,
       "env" to env,
       "hostname" to hostname,
       "podname" to podname,

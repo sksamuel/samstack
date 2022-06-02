@@ -12,14 +12,23 @@ import io.ktor.server.netty.NettyApplicationEngine
 import io.ktor.server.plugins.compression.Compression
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.server.routing.IgnoreTrailingSlash
-import kotlin.time.Duration.Companion.seconds
 
+/**
+ * Creates the ktor server instance for this application.
+ * We use the [NettyApplicationEngine] engine implementation.
+ */
 fun server(config: Config, deps: Dependencies): NettyApplicationEngine {
-   val engineShutdownHook = EngineShutdownHook(prewait = 10.seconds, gracePeriod = 10.seconds, timeout = 30.seconds)
+
+   val engineShutdownHook = EngineShutdownHook(
+      prewait = config.shutdown.prewait,
+      gracePeriod = config.shutdown.grace,
+      timeout = config.shutdown.timeout
+   )
+
    val server = embeddedServer(Netty, port = config.port) {
       install(Compression)
       install(ContentNegotiation) { jackson() }
-      install(IgnoreTrailingSlash)
+      install(IgnoreTrailingSlash) // allows foo/ and foo to be treated the same
       install(MicrometerMetrics) { this.registry = deps.registry }
       install(Cohort) {
          this.gc = true

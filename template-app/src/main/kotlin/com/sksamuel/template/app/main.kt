@@ -17,7 +17,7 @@ const val serviceName = "template-app"
 
 /**
  * In JVM apps, the main method is the entry point into the program.
- * Obviously printing out an ascii art banner is the most important part of any application.
+ * Obviously, printing out an ascii banner is the most important part of any application.
  */
 suspend fun main() {
 
@@ -41,8 +41,7 @@ suspend fun main() {
    )
 
    val config = config(env)
-   val registry = createMeterRegistry(config.datadog, env, serviceName)
-   val deps = dependencies(registry, config).use { deps ->
+   dependencies(env, serviceName, config).use { deps ->
       val server = server(config, deps)
       server.start(wait = true)
    }

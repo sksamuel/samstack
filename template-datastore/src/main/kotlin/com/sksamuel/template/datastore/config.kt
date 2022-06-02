@@ -20,6 +20,10 @@ data class DatabaseConfig(
    val poolName: String?,
 )
 
+/**
+ * Creates the [HikariDataSource] connectoion pool.
+ * Can be removed if you are not using a database in this application.
+ */
 fun createDataSource(config: DatabaseConfig, registry: MeterRegistry?): HikariDataSource {
    val hikariConfig = HikariConfig()
 
