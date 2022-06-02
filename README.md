@@ -63,7 +63,7 @@ but try to avoid the more advanced FP features that don't translate well to Kotl
 * [Logback](https://logback.qos.ch/) - a simple alternative to log4j.
 * [Cohort](https://github.com/sksamuel/cohort) A spring-actuator style plugin for Ktor. Useful for probes for
   kubernetes services.
-* [Princeps](https://github.com/sksamuel/princeps) A validation library for Kotlin that takes the "parse don't
+* [Optio](https://github.com/sksamuel/optio) A validation library for Kotlin that takes the "parse don't
   validate" approach.
 * [TestContainers](https://www.testcontainers.org) Creates disposable containers for tests, so you don't need to mock
   database code, because you can test against the real thing.
