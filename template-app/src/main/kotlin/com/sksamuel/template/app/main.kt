@@ -10,7 +10,6 @@ private val logger = KotlinLogging.logger { }
 
 /**
  * In JVM apps, the main method is the entry point into the program.
- * Obviously, printing out an ascii banner is the most important part of any application.
  */
 suspend fun main() {
 
@@ -30,17 +29,6 @@ suspend fun main() {
    // configure coroutines debug logging, useful for stack traces in coroutine land
    System.setProperty(DEBUG_PROPERTY_NAME, DEBUG_PROPERTY_VALUE_ON)
    logger.info("$DEBUG_PROPERTY_NAME=" + System.getProperty(DEBUG_PROPERTY_NAME))
-
-   logger.info(
-      """
-███╗   ███╗██╗   ██╗     ███████╗███████╗██████╗ ██╗   ██╗██╗ ██████╗███████╗
-████╗ ████║╚██╗ ██╔╝     ██╔════╝██╔════╝██╔══██╗██║   ██║██║██╔════╝██╔════╝
-██╔████╔██║ ╚████╔╝█████╗███████╗█████╗  ██████╔╝██║   ██║██║██║     █████╗
-██║╚██╔╝██║  ╚██╔╝ ╚════╝╚════██║██╔══╝  ██╔══██╗╚██╗ ██╔╝██║██║     ██╔══╝
-██║ ╚═╝ ██║   ██║        ███████║███████╗██║  ██║ ╚████╔╝ ██║╚██████╗███████╗
-╚═╝     ╚═╝   ╚═╝        ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝ ╚═════╝╚══════╝
-"""
-   )
 
    val config = config(env)
    dependencies(env, serviceName, config).use { deps ->
