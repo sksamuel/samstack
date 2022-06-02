@@ -6,12 +6,7 @@ plugins {
 dependencies {
    api(project(":template-datastore"))
    api(libs.flyway.core)
-
-   // for data class based configuration
    api(libs.bundles.hoplite)
-   api(libs.bundles.logging)
-
-   testImplementation(libs.bundles.kotest)
 }
 
 docker {

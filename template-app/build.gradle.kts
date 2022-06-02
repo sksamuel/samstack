@@ -12,9 +12,7 @@ dependencies {
 
    api(libs.bundles.ktor.server)
    api(libs.bundles.cohort)
-   api(libs.bundles.arrow)
    api(libs.bundles.hoplite)
-   api(libs.bundles.logging)
 }
 
 docker {

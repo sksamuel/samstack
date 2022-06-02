@@ -24,29 +24,16 @@ subprojects {
 
    dependencies {
 
-      // base kotlin libraries
       api(kotlin("stdlib-jdk8"))
-//      implementation(libs.kotlinx.coroutines.core)
-//      implementation(libs.kotlinx.coroutines.jdk8)
 
-      // metrics
-//
+      api(rootProject.libs.bundles.coroutines)
+      api(rootProject.libs.bundles.logging)
+      api(rootProject.libs.bundles.arrow)
+      api(rootProject.libs.tabby.core)
 
-      // fp
-//      implementation("com.sksamuel.tabby:tabby-fp:_")
-
-      // logging
-
-
-//       test containers
-//      testImplementation("org.testcontainers:mysql:_")
-//      testImplementation("org.testcontainers:rabbitmq:_")
-//      testImplementation(libs.kotest.extensions.testcontainers)
-//      testImplementation(libs.kotest.extensions.mockserver)
-//
-//       ktor testing
-//      testImplementation(libs.ktor.server.test.host)
-//      testImplementation("io.kotest.extensions:kotest-assertions-ktor:_")
+      testImplementation(rootProject.libs.bundles.kotest)
+      testImplementation(rootProject.libs.bundles.test.containers)
+      testImplementation(rootProject.libs.bundles.mockserver)
    }
 
    // configure kotest to run
