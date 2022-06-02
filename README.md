@@ -58,6 +58,7 @@ but try to avoid the more advanced FP features that don't translate well to Kotl
   JVM based connection pool library in 2022.
 * [Tabby](https://github.com/sksamuel/tabby) - a tiny functional programming accessory kit. Essentially a set of
   extension functions for `Result` that help fill in the gaps on Result.
+* [Arrow](https://arrow-kt.io/) - a functional programming accessory kit. Useful for resource management.
 * [Kotlin Logging](https://github.com/MicroUtils/kotlin-logging) - a simple project that wraps slf4j but makes it easier
   to define a kotlin logger as a top level function.
 * [Logback](https://logback.qos.ch/) - a simple alternative to log4j.
