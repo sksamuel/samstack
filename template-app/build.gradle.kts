@@ -8,11 +8,11 @@ dependencies {
    api(project(":template-services"))
    api(project(":template-endpoints"))
 
+   api(libs.micrometer.registry.datadog)
+
    api(libs.bundles.ktor.server)
    api(libs.bundles.cohort)
-
-   implementation(libs.micrometer.registry.datadog)
-
+   api(libs.bundles.arrow)
    api(libs.bundles.hoplite)
    api(libs.bundles.logging)
 }

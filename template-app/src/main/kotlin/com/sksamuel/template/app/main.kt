@@ -1,29 +1,34 @@
 package com.sksamuel.template.app
 
-import com.sksamuel.cohort.HealthCheckRegistry
-import com.sksamuel.cohort.ktor.Cohort
-import com.sksamuel.cohort.ktor.EngineShutdownHook
-import com.sksamuel.cohort.threads.ThreadDeadlockHealthCheck
-import com.sksamuel.template.endpoints.module
-import io.ktor.serialization.jackson.jackson
-import io.ktor.server.application.install
-import io.ktor.server.engine.embeddedServer
-import io.ktor.server.metrics.micrometer.MicrometerMetrics
-import io.ktor.server.netty.Netty
-import io.ktor.server.plugins.compression.Compression
-import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.server.routing.IgnoreTrailingSlash
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.DEBUG_PROPERTY_NAME
+import kotlinx.coroutines.DEBUG_PROPERTY_VALUE_ON
 import mu.KotlinLogging
-import kotlin.time.Duration.Companion.seconds
+import java.time.ZoneOffset
+import java.util.*
 
 private val logger = KotlinLogging.logger { }
+
+// the ENV env-var is used to determine which configuration files to load
+// we default to local so when running locally we don't need to specify the variable.
+val env = System.getenv("ENV") ?: "local"
+
+// replace 'template-app' with the name of your app
+const val serviceName = "template-app"
 
 /**
  * In JVM apps, the main method is the entry point into the program.
  * Obviously printing out an ascii art banner is the most important part of any application.
  */
-fun main() {
+suspend fun main() {
+
+   // configure coroutines debug logging, useful for stack traces in coroutine land
+   System.setProperty(DEBUG_PROPERTY_NAME, DEBUG_PROPERTY_VALUE_ON)
+   logger.info("$DEBUG_PROPERTY_NAME=" + System.getProperty(DEBUG_PROPERTY_NAME))
+
+   // ensure we are always using UTC for times
+   TimeZone.setDefault(TimeZone.getTimeZone(ZoneOffset.UTC))
+   logger.info("Timezone=" + TimeZone.getDefault())
+
    logger.info(
       """
 ███╗   ███╗██╗   ██╗     ███████╗███████╗██████╗ ██╗   ██╗██╗ ██████╗███████╗
@@ -35,28 +40,10 @@ fun main() {
 """
    )
 
-   val engineShutdownHook = EngineShutdownHook(prewait = 10.seconds, gracePeriod = 10.seconds, timeout = 30.seconds)
-   val server = embeddedServer(Netty, port = App.config.port) {
-      install(Compression)
-      install(ContentNegotiation) { jackson() }
-      install(IgnoreTrailingSlash)
-      install(MicrometerMetrics) { this.registry = App.registry }
-      install(Cohort) {
-         this.gc = true
-         this.jvmInfo = true
-         this.sysprops = true
-         this.threadDump = true
-         this.heapDump = true
-         onShutdown(engineShutdownHook)
-         healthcheck("/health", HealthCheckRegistry(Dispatchers.Default) {
-            register(ThreadDeadlockHealthCheck(2), 15.seconds)
-         })
-      }
-      // create your http modules here, passing in dependencies from the context object.
-      // each module can be a set of related endpoints and plugins that you can easily test.
-      // you may only have a single module for your entire app.
-      module(App.beerService)
+   val config = config(env)
+   val registry = createMeterRegistry(config.datadog, env, serviceName)
+   val deps = dependencies(registry, config).use { deps ->
+      val server = server(config, deps)
+      server.start(wait = true)
    }
-   engineShutdownHook.setEngine(server)
-   server.start(true)
 }

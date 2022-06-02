@@ -3,7 +3,6 @@ package com.sksamuel.template.datastore
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.micrometer.core.instrument.MeterRegistry
-import javax.sql.DataSource
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.hours
 
@@ -21,7 +20,7 @@ data class DatabaseConfig(
    val poolName: String?,
 )
 
-fun createDataSource(config: DatabaseConfig, registry: MeterRegistry?): DataSource {
+fun createDataSource(config: DatabaseConfig, registry: MeterRegistry?): HikariDataSource {
    val hikariConfig = HikariConfig()
 
    hikariConfig.jdbcUrl = config.url
