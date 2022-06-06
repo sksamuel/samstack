@@ -15,7 +15,9 @@ import io.ktor.server.routing.IgnoreTrailingSlash
 
 /**
  * Creates the ktor server instance for this application.
- * We use the [NettyApplicationEngine] engine implementation.
+ * We use the [Netty] engine implementation.
+ *
+ * @return the engine instance ready to be started.
  */
 fun server(config: Config, deps: Dependencies): NettyApplicationEngine {
 

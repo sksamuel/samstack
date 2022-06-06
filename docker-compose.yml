@@ -5,4 +5,8 @@ services:
       image: postgres
       restart: always
       environment:
-         POSTGRES_PASSWORD: example
+         POSTGRES_USER: sks
+         POSTGRES_PASSWORD: letmein
+         POSTGRES_DB: mydb
+      ports:
+         - "5432:5432"
