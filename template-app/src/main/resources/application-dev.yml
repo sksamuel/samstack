@@ -3,7 +3,7 @@ datadog:
    api-key: "secretsmanager://dev-template-datadog-api-key"
 
 db:
-   url: jdbc:postgres://hostname:5432/databasename
+   url: jdbc:postgresql://hostname:5432/databasename
    username: "secretsmanager://dev-template-rds-username"
    password: "secretsmanager://dev-template-rds-password"
    minimumIdle: 16
