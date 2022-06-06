@@ -16,7 +16,7 @@ import kotlin.time.Duration
 fun config(env: String) = ConfigLoaderBuilder.default()
    .addPreprocessor(AwsSecretsManagerPreprocessor())
    .addPropertySource(PropertySource.resource("/application-${env}.yml", true))
-   .addPropertySource(PropertySource.resource("/reference.yml", true))
+   .addPropertySource(PropertySource.resource("/shared.yml", true)) // shared config goes in shared.yml
    .report() // shows config values at startup with strings obfuscated for security
    .build()
    .loadConfigOrThrow<Config>()
