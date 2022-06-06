@@ -29,6 +29,9 @@ ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor"
 ktor-server-compression = { module = "io.ktor:ktor-server-compression", version.ref = "ktor" }
 ktor-server-content-negotiation = { module = "io.ktor:ktor-server-content-negotiation", version.ref = "ktor" }
 ktor-server-metrics-micrometer = { module = "io.ktor:ktor-server-metrics-micrometer", version.ref = "ktor" }
+ktor-server-default-headers = { module = "io.ktor:ktor-server-default-headers", version.ref = "ktor" }
+ktor-server-cors = { module = "io.ktor:ktor-server-cors", version.ref = "ktor" }
+ktor-server-hsts = { module = "io.ktor:ktor-server-hsts", version.ref = "ktor" }
 ktor-server-test-host = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor" }
 
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
@@ -81,7 +84,7 @@ coroutines = ["kotlinx-coroutines-core", "kotlinx-coroutines-jdk8"]
 cohort = ["cohort-core", "cohort-ktor2", "cohort-hikari"]
 kotest = ["kotest-framework-datatest", "kotest-framework-junit5", "kotest-assertions-core", "kotest-assertions-json", "kotest-property", "kotest-assertions-ktor"]
 logging = ["logback-classic", "slf4j-api", "kotlin-logging"]
-ktor-server = ["ktor-server-netty", "ktor-server-compression", "ktor-server-content-negotiation", "ktor-server-metrics-micrometer", "ktor-server-test-host", "ktor-serialization-jackson"]
+ktor-server = ["ktor-server-netty", "ktor-server-compression", "ktor-server-content-negotiation", "ktor-server-metrics-micrometer", "ktor-server-test-host", "ktor-serialization-jackson", "ktor-server-default-headers", "ktor-server-cors", "ktor-server-hsts"]
 ktor-client = ["ktor-client-core", "ktor-client-cio", "ktor-client-encoding", "ktor-serialization-jackson"]
 jackson = ["jackson-databind", "jackson-module-kotlin", "jackson-datatype-jsr310"]
 arrow = ["arrow-fx-coroutines"]

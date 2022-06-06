@@ -28,8 +28,8 @@ fun server(config: Config, deps: Dependencies): NettyApplicationEngine {
    )
 
    val server = embeddedServer(Netty, port = config.port) {
-      install(Compression)
-      install(ContentNegotiation) { jackson() }
+
+
       install(IgnoreTrailingSlash) // allows foo/ and foo to be treated the same
       install(MicrometerMetrics) { this.registry = deps.registry }
       install(Cohort) {
