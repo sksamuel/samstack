@@ -3,15 +3,11 @@ package com.sksamuel.template.app
 import com.sksamuel.cohort.ktor.Cohort
 import com.sksamuel.cohort.ktor.EngineShutdownHook
 import com.sksamuel.template.endpoints.module
-import io.ktor.serialization.jackson.jackson
 import io.ktor.server.application.install
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.metrics.micrometer.MicrometerMetrics
 import io.ktor.server.netty.Netty
 import io.ktor.server.netty.NettyApplicationEngine
-import io.ktor.server.plugins.compression.Compression
-import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.server.routing.IgnoreTrailingSlash
 
 /**
  * Creates the ktor server instance for this application.
@@ -28,9 +24,6 @@ fun server(config: Config, deps: Dependencies): NettyApplicationEngine {
    )
 
    val server = embeddedServer(Netty, port = config.port) {
-
-
-      install(IgnoreTrailingSlash) // allows foo/ and foo to be treated the same
       install(MicrometerMetrics) { this.registry = deps.registry }
       install(Cohort) {
          this.gc = true
