@@ -7,7 +7,6 @@
    </appender>
    <root level="INFO">
       <appender-ref ref="CONSOLE"/>
-      <appender-ref ref="ROLLINGFILE"/>
    </root>
    <logger name="org.apache.kafka" level="WARN"/>
    <logger name="com.github.dockerjava" level="WARN"/>
