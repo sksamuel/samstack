@@ -1,0 +1,6 @@
+port: 8080
+
+shutdown:
+   prewait: 10000ms
+   grace: 10000ms
+   timeout: 10000ms

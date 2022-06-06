@@ -3,8 +3,6 @@ package com.sksamuel.template.datastore
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.micrometer.core.instrument.MeterRegistry
-import kotlin.time.Duration
-import kotlin.time.Duration.Companion.hours
 
 data class DatabaseConfig(
    val url: String,
@@ -12,12 +10,9 @@ data class DatabaseConfig(
    val password: String,
    val maximumPoolSize: Int = 8,
    val minimumIdle: Int = 2,
-   val idleTimeout: Duration = 1.hours,
-   val maxLifetime: Duration = 1.hours,
-   val cachePrepStmts: Boolean = true,
-   val prepStmtCacheSize: Int = 1,
-   val prepStmtCacheSqlLimit: Int = 1,
-   val poolName: String?,
+   val idleTimeout: Long? = null,
+   val maxLifetime: Long? = null,
+   val poolName: String? = null,
 )
 
 /**
@@ -38,15 +33,10 @@ fun createDataSource(config: DatabaseConfig, registry: MeterRegistry?): HikariDa
    hikariConfig.minimumIdle = config.minimumIdle
 
    // default is 30 minutes
-   hikariConfig.maxLifetime = config.maxLifetime.inWholeMilliseconds
+   config.maxLifetime?.let { hikariConfig.maxLifetime = it }
 
    // how long a connection is unused before being shut down
-   hikariConfig.idleTimeout = config.idleTimeout.inWholeMilliseconds
-
-   // these are properties on the underlying JDBC connection
-   hikariConfig.addDataSourceProperty("cachePrepStmts", config.cachePrepStmts)
-   hikariConfig.addDataSourceProperty("prepStmtCacheSize", config.prepStmtCacheSize)
-   hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit", config.prepStmtCacheSqlLimit)
+   config.idleTimeout?.let { hikariConfig.idleTimeout = it }
 
    // in systems with multiple datasources, like readers and writers, can be useful to give
    // them a name for metrics purposes
