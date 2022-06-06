@@ -3,8 +3,6 @@ package com.sksamuel.template.app
 import io.micrometer.core.instrument.Clock
 import io.micrometer.core.instrument.ImmutableTag
 import io.micrometer.core.instrument.MeterRegistry
-import io.micrometer.core.instrument.binder.jvm.ClassLoaderMetrics
-import io.micrometer.core.instrument.binder.jvm.JvmCompilationMetrics
 import io.micrometer.core.instrument.binder.jvm.JvmGcMetrics
 import io.micrometer.core.instrument.binder.jvm.JvmHeapPressureMetrics
 import io.micrometer.core.instrument.binder.jvm.JvmInfoMetrics
@@ -33,10 +31,8 @@ data class DatadogHttpConfig(
 
 // these can be removed if you are using APMs from a JVM agent
 private val metrics = listOf(
-   ClassLoaderMetrics(),
    DiskSpaceMetrics(File("/")),
    FileDescriptorMetrics(),
-   JvmCompilationMetrics(),
    JvmGcMetrics(),
    JvmInfoMetrics(),
    JvmHeapPressureMetrics(),
@@ -55,13 +51,15 @@ private val metrics = listOf(
  */
 fun createMeterRegistry(config: DatadogHttpConfig, env: String, serviceName: String): MeterRegistry {
 
+   val hostnameTag = "hostname"
+
    // creates a datadog http based registry
    val registry = DatadogMeterRegistry(object : DatadogConfig {
       override fun apiKey(): String = config.apiKey
       override fun applicationKey(): String? = config.applicationKey
       override fun batchSize(): Int = 1000
       override fun enabled(): Boolean = config.enabled
-      override fun hostTag(): String = "hostname"
+      override fun hostTag(): String = hostnameTag
       override fun get(key: String): String? = null
       override fun step(): Duration = Duration.ofSeconds(30)
    }, Clock.SYSTEM)
@@ -79,7 +77,7 @@ fun createMeterRegistry(config: DatadogHttpConfig, env: String, serviceName: Str
    mapOf(
       "service" to serviceName,
       "env" to env,
-      "hostname" to hostname,
+      hostnameTag to hostname,
       "podname" to podname,
    ).forEach { (key, value) ->
       if (value != null) registry.config().commonTags(listOf(ImmutableTag(key, value)))
