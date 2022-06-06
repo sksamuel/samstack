@@ -4,23 +4,20 @@ import kotlinx.coroutines.DEBUG_PROPERTY_NAME
 import kotlinx.coroutines.DEBUG_PROPERTY_VALUE_ON
 import mu.KotlinLogging
 import java.time.ZoneOffset
-import java.util.*
+import java.util.TimeZone
 
 private val logger = KotlinLogging.logger { }
 
-/**
- * In JVM apps, the main method is the entry point into the program.
- */
 suspend fun main() {
 
-   // the ENV env-var is used to determine which configuration files to load
+   // the APP_ENV env-var is used to determine which configuration files to load
    // we default to local so when running locally we don't need to specify the variable.
-   val env = System.getenv("ENV") ?: "local"
+   val env = System.getenv("APP_ENV") ?: "local"
    logger.info("Environment=$env")
 
    // replace 'template-app' with the name of your app
    val serviceName = "template-app"
-   logger.info("ServiceName=$serviceName")
+   logger.info("Service=$serviceName")
 
    // ensure we are always using UTC for times
    TimeZone.setDefault(TimeZone.getTimeZone(ZoneOffset.UTC))
