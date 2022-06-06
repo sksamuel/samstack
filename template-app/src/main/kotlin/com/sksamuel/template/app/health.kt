@@ -1,6 +1,7 @@
 package com.sksamuel.template.app
 
 import com.sksamuel.cohort.HealthCheckRegistry
+import com.sksamuel.cohort.cpu.ProcessCpuHealthCheck
 import com.sksamuel.cohort.hikari.HikariConnectionsHealthCheck
 import com.sksamuel.cohort.memory.FreememHealthCheck
 import com.sksamuel.cohort.memory.GarbageCollectionTimeCheck
@@ -19,6 +20,8 @@ fun startupProbes(ds: HikariDataSource) = HealthCheckRegistry(Dispatchers.Defaul
    register(ThreadDeadlockHealthCheck(2), 15.seconds)
    // we are not started until we have the min number of connections spun up
    register(HikariConnectionsHealthCheck(ds, ds.hikariConfigMXBean.minimumIdle), 15.seconds)
+   // we don't consider ourselves started until the CPU has settled down
+   register(ProcessCpuHealthCheck(0.5), 15.seconds)
 }
 
 // this probe should be modified to check for scenarios that warrant a restart, such as low memory

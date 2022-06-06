@@ -49,6 +49,7 @@ private val metrics = listOf(
 /**
  * Creates the Micrometer [MeterRegistry] backed by datadog collector.
  *
+ * @param config datadog config
  * @param env the variable for the environment eg STAGING or PROD.
  * @param serviceName a unique name for this service added as a tag
  */
