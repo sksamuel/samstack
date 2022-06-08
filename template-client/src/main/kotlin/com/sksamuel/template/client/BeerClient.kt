@@ -11,14 +11,14 @@ import io.ktor.client.request.get
 import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.readBytes
 
-class BeerClient {
+class BeerClient(private val config: ClientConfig) {
 
    private val client = HttpClient(CIO) {
       install(ContentEncoding)
       install(HttpTimeout) {
-         requestTimeoutMillis = 3000
-         connectTimeoutMillis = 2000
-         socketTimeoutMillis = 3000
+         requestTimeoutMillis = config.requestTimeoutMillis
+         connectTimeoutMillis = config.connectTimeoutMillis
+         socketTimeoutMillis = config.socketTimeoutMillis
       }
       install(HttpRequestRetry) {
          retryOnServerErrors(maxRetries = 5)

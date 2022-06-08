@@ -28,12 +28,16 @@ fun dependencies(env: String, serviceName: String, config: Config): Resource<Dep
 
    // -- managed resources (have state to shut down) --
 
-   val registry = resource { createMeterRegistry(config.datadog, env, serviceName) }.release {
+   val registry = resource {
+      createMeterRegistry(config.datadog, env, serviceName)
+   }.release {
       logger.info { "Closing meter registry" }
       it.close()
    }.bind()
 
-   val ds = resource { createDataSource(config.db, registry) }.release {
+   val ds = resource {
+      createDataSource(config.db, registry)
+   }.release {
       logger.info { "Closing datasource" }
       it.close()
    }.bind()
