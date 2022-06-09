@@ -16,7 +16,7 @@ data class DatabaseConfig(
 )
 
 /**
- * Creates the [HikariDataSource] connectoion pool.
+ * Creates the [HikariDataSource] connection pool.
  * Can be removed if you are not using a database in this application.
  */
 fun createDataSource(config: DatabaseConfig, registry: MeterRegistry?): HikariDataSource {

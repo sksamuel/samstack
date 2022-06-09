@@ -7,7 +7,7 @@ kotest = "5.3.0"
 junit-platform = "1.7.2"
 junit-jupiter = "5.7.2"
 hoplite = "2.1.5"
-cohort = "1.4.0"
+cohort = "1.4.1"
 arrow = "1.1.2"
 
 [libraries]
