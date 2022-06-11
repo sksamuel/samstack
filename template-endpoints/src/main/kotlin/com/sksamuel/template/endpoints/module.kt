@@ -14,9 +14,8 @@ import io.ktor.server.routing.routing
 import kotlin.time.Duration.Companion.hours
 
 /**
- * Organize ktor apps into modules.
- *
- * Each module contains a subset of endpoints and the module can be added to setup tests.
+ * Configures the http settings for a ktor server.
+ * A module contains routes and the plugins needed for tests.
  */
 fun Application.module(service: BeerService) {
 
@@ -28,7 +27,7 @@ fun Application.module(service: BeerService) {
 
    install(CORS)
 
-   // enables strict security headers
+   // enables strict security headers to force TLS
    install(HSTS) { maxAgeInSeconds = 1.hours.inWholeSeconds }
 
    // setup json marshalling - provide your own jackson mapper if you have custom jackson modules
