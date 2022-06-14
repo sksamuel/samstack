@@ -3,10 +3,13 @@ kotlin = "1.6.21"
 kotlinx-coroutines = "1.6.1"
 kotlinx-serialization = "1.3.2"
 ktor = "2.0.2"
-kotest = "5.3.0"
+kotest = "5.3.1"
+kotest-ktor = "1.0.3"
 hoplite = "2.1.5"
 cohort = "1.4.1"
 arrow = "1.1.2"
+jackson = "2.13.3"
+spring-jdbc = "5.3.20"
 
 [libraries]
 
@@ -40,7 +43,7 @@ kotest-framework-datatest = { module = "io.kotest:kotest-framework-datatest", ve
 kotest-framework-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-assertions-json = { module = "io.kotest:kotest-assertions-json", version.ref = "kotest" }
-kotest-assertions-ktor = { module = "io.kotest.extensions:kotest-assertions-ktor", version = "1.0.3" }
+kotest-assertions-ktor = { module = "io.kotest.extensions:kotest-assertions-ktor", version.ref = "kotest-ktor" }
 kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
 
 kotest-extensions-mockserver = { module = "io.kotest.extensions:kotest-extensions-mockserver", version = "1.1.2" }
@@ -53,15 +56,15 @@ testcontainers-rabbitmq = { module = "org.testcontainers:rabbitmq", version = "1
 kotlin-compiler = { module = "org.jetbrains.kotlin:kotlin-compiler", version.ref = "kotlin" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
-jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version = "2.13.3" }
-jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version = "2.13.3" }
-jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version = "2.13.3" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
+jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson" }
 
 tabby-core = { module = "com.sksamuel.tabby:tabby-fp", version = "2.0.19" }
 
 flyway-core = { module = "org.flywaydb:flyway-core", version = "8.5.11" }
 
-spring-jdbc = { module = "org.springframework:spring-jdbc", version = "5.3.20" }
+spring-jdbc = { module = "org.springframework:spring-jdbc", version.ref = "spring-jdbc" }
 postgresql = { module = "org.postgresql:postgresql", version = "42.3.6" }
 hikaricp = { module = "com.zaxxer:HikariCP", version = "5.0.1" }
 
