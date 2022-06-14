@@ -55,6 +55,8 @@ kotest-extensions-testcontainers = { module = "io.kotest.extensions:kotest-exten
 testcontainers-mysql = { module = "org.testcontainers:mysql", version = "1.17.1" }
 testcontainers-rabbitmq = { module = "org.testcontainers:rabbitmq", version = "1.17.1" }
 
+lettuce-core = { module = "io.lettuce:lettuce-core", version = "6.1.8.RELEASE" }
+
 kotlin-compiler = { module = "org.jetbrains.kotlin:kotlin-compiler", version.ref = "kotlin" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 
