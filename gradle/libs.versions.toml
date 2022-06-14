@@ -10,6 +10,8 @@ cohort = "1.4.1"
 arrow = "1.1.2"
 jackson = "2.13.3"
 spring-jdbc = "5.3.20"
+flyway-core = "8.5.11"
+micrometer = "1.9.0"
 
 [libraries]
 
@@ -62,14 +64,14 @@ jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-dat
 
 tabby-core = { module = "com.sksamuel.tabby:tabby-fp", version = "2.0.19" }
 
-flyway-core = { module = "org.flywaydb:flyway-core", version = "8.5.11" }
+flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway-core" }
 
 spring-jdbc = { module = "org.springframework:spring-jdbc", version.ref = "spring-jdbc" }
 postgresql = { module = "org.postgresql:postgresql", version = "42.3.6" }
 hikaricp = { module = "com.zaxxer:HikariCP", version = "5.0.1" }
 
-micrometer-registry-core = { module = "io.micrometer:micrometer-registry-core", version = "1.9.0" }
-micrometer-registry-datadog = { module = "io.micrometer:micrometer-registry-datadog", version = "1.9.0" }
+micrometer-registry-core = { module = "io.micrometer:micrometer-registry-core", version.ref = "micrometer" }
+micrometer-registry-datadog = { module = "io.micrometer:micrometer-registry-datadog", version.ref = "micrometer" }
 
 logback-classic = { module = "ch.qos.logback:logback-classic", version = "1.2.11" }
 slf4j-api = { module = "org.slf4j:slf4j-api", version = "1.7.36" }
