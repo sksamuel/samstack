@@ -10,12 +10,25 @@ private val logger = KotlinLogging.logger { }
 
 suspend fun main() {
 
-   // the APP_ENV env-var is used to determine which configuration files to load
+   logger.info {
+      """
+████████╗███████╗███╗   ███╗██████╗ ██╗      █████╗ ████████╗███████╗    ███████╗███████╗██████╗ ██╗   ██╗██╗ ██████╗███████╗
+╚══██╔══╝██╔════╝████╗ ████║██╔══██╗██║     ██╔══██╗╚══██╔══╝██╔════╝    ██╔════╝██╔════╝██╔══██╗██║   ██║██║██╔════╝██╔════╝
+   ██║   █████╗  ██╔████╔██║██████╔╝██║     ███████║   ██║   █████╗█████╗███████╗█████╗  ██████╔╝██║   ██║██║██║     █████╗
+   ██║   ██╔══╝  ██║╚██╔╝██║██╔═══╝ ██║     ██╔══██║   ██║   ██╔══╝╚════╝╚════██║██╔══╝  ██╔══██╗╚██╗ ██╔╝██║██║     ██╔══╝
+   ██║   ███████╗██║ ╚═╝ ██║██║     ███████╗██║  ██║   ██║   ███████╗    ███████║███████╗██║  ██║ ╚████╔╝ ██║╚██████╗███████╗
+   ╚═╝   ╚══════╝╚═╝     ╚═╝╚═╝     ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝  ╚═══╝  ╚═╝ ╚═════╝╚══════╝
+"""
+   }
+
+   // the ENV_NAME environment variable is used to determine which configuration files to load
    // we default to local so when running locally we don't need to specify the variable.
-   val env = System.getenv("APP_ENV") ?: "local"
+   // this must be set in your helm charts when deploying to a real environment.
+   val env = System.getenv("ENV_NAME") ?: "local"
    logger.info("Environment=$env")
 
-   // replace 'template-app' with the name of your app
+   // replace 'template-app' with the name of your app, eg "registration-service"
+   // this name is used for logging and metrics
    val serviceName = "template-app"
    logger.info("Service=$serviceName")
 
@@ -23,7 +36,7 @@ suspend fun main() {
    TimeZone.setDefault(TimeZone.getTimeZone(ZoneOffset.UTC))
    logger.info("Timezone=" + TimeZone.getDefault())
 
-   // configure coroutines debug logging, useful for stack traces in coroutine land
+   // configure coroutines debug logging, useful for stack traces thrown inside coroutines
    System.setProperty(DEBUG_PROPERTY_NAME, DEBUG_PROPERTY_VALUE_ON)
    logger.info("$DEBUG_PROPERTY_NAME=" + System.getProperty(DEBUG_PROPERTY_NAME))
 
