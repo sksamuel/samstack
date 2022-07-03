@@ -2,16 +2,22 @@
 kotlin = "1.6.21"
 kotlinx-coroutines = "1.6.1"
 kotlinx-serialization = "1.3.2"
-ktor = "2.0.2"
-kotest = "5.3.1"
-kotest-ktor = "1.0.3"
-hoplite = "2.1.5"
-cohort = "1.4.1"
 arrow = "1.1.2"
-jackson = "2.13.3"
-spring-jdbc = "5.3.20"
+cohort = "1.4.1"
 flyway-core = "8.5.11"
+hikari = "5.0.1"
+hoplite = "2.1.5"
+jackson = "2.13.3"
+kotest = "5.3.1"
+kotlin-logging = "2.1.23"
+kotest-ktor = "1.0.3"
+ktor = "2.0.2"
+lettuce = "6.1.8.RELEASE"
+logback = "1.2.11"
+slf4j = "1.7.36"
 micrometer = "1.9.0"
+postgres = "42.3.6"
+spring-jdbc = "5.3.20"
 
 [libraries]
 
@@ -55,7 +61,7 @@ kotest-extensions-testcontainers = { module = "io.kotest.extensions:kotest-exten
 testcontainers-mysql = { module = "org.testcontainers:mysql", version = "1.17.1" }
 testcontainers-rabbitmq = { module = "org.testcontainers:rabbitmq", version = "1.17.1" }
 
-lettuce-core = { module = "io.lettuce:lettuce-core", version = "6.1.8.RELEASE" }
+lettuce-core = { module = "io.lettuce:lettuce-core", version.ref = "lettuce" }
 
 kotlin-compiler = { module = "org.jetbrains.kotlin:kotlin-compiler", version.ref = "kotlin" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -69,30 +75,30 @@ tabby-core = { module = "com.sksamuel.tabby:tabby-fp", version = "2.0.19" }
 flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway-core" }
 
 spring-jdbc = { module = "org.springframework:spring-jdbc", version.ref = "spring-jdbc" }
-postgresql = { module = "org.postgresql:postgresql", version = "42.3.6" }
-hikaricp = { module = "com.zaxxer:HikariCP", version = "5.0.1" }
+postgresql = { module = "org.postgresql:postgresql", version.ref = "postgres" }
+hikaricp = { module = "com.zaxxer:HikariCP", version.ref = "hikari" }
 
 micrometer-registry-core = { module = "io.micrometer:micrometer-registry-core", version.ref = "micrometer" }
 micrometer-registry-datadog = { module = "io.micrometer:micrometer-registry-datadog", version.ref = "micrometer" }
 
-logback-classic = { module = "ch.qos.logback:logback-classic", version = "1.2.11" }
-slf4j-api = { module = "org.slf4j:slf4j-api", version = "1.7.36" }
-kotlin-logging = { module = "io.github.microutils:kotlin-logging", version = "2.1.23" }
+logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+kotlin-logging = { module = "io.github.microutils:kotlin-logging", version.ref = "kotlin-logging" }
 
 arrow-fx-coroutines = { module = "io.arrow-kt:arrow-fx-coroutines", version.ref = "arrow" }
 
 [bundles]
-hoplite = ["hoplite-core", "hoplite-yaml", "hoplite-aws"]
-coroutines = ["kotlinx-coroutines-core", "kotlinx-coroutines-jdk8"]
+arrow = ["arrow-fx-coroutines"]
 cohort = ["cohort-core", "cohort-ktor2", "cohort-hikari"]
+coroutines = ["kotlinx-coroutines-core", "kotlinx-coroutines-jdk8"]
+hoplite = ["hoplite-core", "hoplite-yaml", "hoplite-aws"]
+jackson = ["jackson-databind", "jackson-module-kotlin", "jackson-datatype-jsr310"]
 kotest = ["kotest-framework-datatest", "kotest-framework-junit5", "kotest-assertions-core", "kotest-assertions-json", "kotest-property", "kotest-assertions-ktor"]
-logging = ["logback-classic", "slf4j-api", "kotlin-logging"]
 ktor-server = ["ktor-server-netty", "ktor-server-compression", "ktor-server-content-negotiation", "ktor-server-metrics-micrometer", "ktor-server-test-host", "ktor-serialization-jackson", "ktor-server-default-headers", "ktor-server-cors", "ktor-server-hsts"]
 ktor-client = ["ktor-client-core", "ktor-client-cio", "ktor-client-encoding", "ktor-serialization-jackson"]
-jackson = ["jackson-databind", "jackson-module-kotlin", "jackson-datatype-jsr310"]
-arrow = ["arrow-fx-coroutines"]
-test-containers = ["testcontainers-mysql", "testcontainers-rabbitmq", "kotest-extensions-testcontainers"]
+logging = ["logback-classic", "slf4j-api", "kotlin-logging"]
 mockserver = ["mockserver-netty", "kotest-extensions-mockserver"]
+test-containers = ["testcontainers-mysql", "testcontainers-rabbitmq", "kotest-extensions-testcontainers"]
 
 [plugins]
 shadowjar = { id = "com.github.johnrengelman.shadow", version = "7.1.2" }
