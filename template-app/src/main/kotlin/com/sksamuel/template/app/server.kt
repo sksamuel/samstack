@@ -53,8 +53,8 @@ fun server(config: Config, deps: Dependencies): NettyApplicationEngine {
          this.heapDump = true
          onShutdown(engineShutdownHook)
          healthcheck("/startup", startupProbes(deps.dataSource))
-         healthcheck("/liveness", livenessProbes)
-         healthcheck("/readiness", readinessProbes)
+         healthcheck("/liveness", livenessProbes())
+         healthcheck("/readiness", readinessProbes())
       }
 
       // create your http module here, passing in dependencies from the context object (or the deps object itself).

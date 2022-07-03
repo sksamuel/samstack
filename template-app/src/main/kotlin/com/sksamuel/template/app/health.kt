@@ -5,6 +5,7 @@ import com.sksamuel.cohort.cpu.ProcessCpuHealthCheck
 import com.sksamuel.cohort.hikari.HikariConnectionsHealthCheck
 import com.sksamuel.cohort.memory.FreememHealthCheck
 import com.sksamuel.cohort.memory.GarbageCollectionTimeCheck
+import com.sksamuel.cohort.system.OpenFileDescriptorsHealthCheck
 import com.sksamuel.cohort.threads.ThreadDeadlockHealthCheck
 import com.sksamuel.cohort.threads.ThreadStateHealthCheck
 import com.zaxxer.hikari.HikariDataSource
@@ -12,10 +13,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlin.time.Duration.Companion.seconds
 
 // -- this file contains the various kubernetes health checks --
-// -- startup is used while the app is initializing
-// -- liveness is used to determine if or when the app has stalled and must be restarted
-// -- readiness is used to temporarily halt new requests to a service if it is overloaded
 
+/**
+ * These probes determine when the app has finished initializing. For example, we may want to wait
+ * until we have connected to a database, or an elasticsearch instance, or performed some other
+ * expensive startup cost.
+ */
 fun startupProbes(ds: HikariDataSource) = HealthCheckRegistry(Dispatchers.Default) {
    register(ThreadDeadlockHealthCheck(2), 15.seconds)
    // we are not started until we have the min number of connections spun up
@@ -24,14 +27,22 @@ fun startupProbes(ds: HikariDataSource) = HealthCheckRegistry(Dispatchers.Defaul
    register(ProcessCpuHealthCheck(0.5), 15.seconds)
 }
 
-// this probe should be modified to check for scenarios that warrant a restart, such as low memory
-val livenessProbes = HealthCheckRegistry(Dispatchers.Default) {
+/**
+ * These probes should be used to check for scenarios that warrant a restart, such as out of memory,
+ * thread deadlocks, or too many open file descriptors.
+ */
+fun livenessProbes() = HealthCheckRegistry(Dispatchers.Default) {
    register(ThreadDeadlockHealthCheck(2), 15.seconds)
+   register(OpenFileDescriptorsHealthCheck(32_000), 15.seconds)
    register(FreememHealthCheck(10_000_000), 15.seconds) // restart if less than 10mb available
    register(GarbageCollectionTimeCheck(50), 15.seconds) // restart if we are spending over 50% of time in gc
 }
 
-val readinessProbes = HealthCheckRegistry(Dispatchers.Default) {
+/**
+ * Add probes here that should determine when to temporarily halt new requests to a service.
+ * This is used when a service is overloaded but does not require a restart.
+ */
+fun readinessProbes() = HealthCheckRegistry(Dispatchers.Default) {
    register(ThreadDeadlockHealthCheck(2), 15.seconds)
    register(ThreadStateHealthCheck(Thread.State.TIMED_WAITING, 50), 15.seconds)
    register(ThreadStateHealthCheck(Thread.State.WAITING, 50), 15.seconds)
