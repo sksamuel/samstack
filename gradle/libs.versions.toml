@@ -1,6 +1,6 @@
 [versions]
-kotlin = "1.6.21"
-kotlinx-coroutines = "1.6.1"
+kotlin = "1.7.0"
+kotlinx-coroutines = "1.6.3"
 kotlinx-serialization = "1.3.2"
 arrow = "1.1.2"
 cohort = "1.4.1"
@@ -9,15 +9,20 @@ hikari = "5.0.1"
 hoplite = "2.1.5"
 jackson = "2.13.3"
 kotest = "5.3.1"
-kotlin-logging = "2.1.23"
 kotest-ktor = "1.0.3"
+kotest-mockserver = "1.1.2"
+kotest-test-containers = "1.3.3"
+kotlin-logging = "2.1.23"
 ktor = "2.0.2"
 lettuce = "6.1.8.RELEASE"
 logback = "1.2.11"
-slf4j = "1.7.36"
 micrometer = "1.9.0"
+mockserver = "5.11.2"
 postgres = "42.3.6"
+slf4j = "1.7.36"
+shadow = "7.1.2"
 spring-jdbc = "5.3.20"
+tabby = "2.0.19"
 test-containers = "1.17.1"
 
 [libraries]
@@ -55,12 +60,12 @@ kotest-assertions-json = { module = "io.kotest:kotest-assertions-json", version.
 kotest-assertions-ktor = { module = "io.kotest.extensions:kotest-assertions-ktor", version.ref = "kotest-ktor" }
 kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
 
-kotest-extensions-mockserver = { module = "io.kotest.extensions:kotest-extensions-mockserver", version = "1.1.2" }
-mockserver-netty = { module = "org.mock-server:mockserver-netty", version = "5.11.2" }
+mockserver-netty = { module = "org.mock-server:mockserver-netty", version.ref = "mockserver" }
+kotest-extensions-mockserver = { module = "io.kotest.extensions:kotest-extensions-mockserver", version.ref = "kotest-mockserver" }
 
-kotest-extensions-testcontainers = { module = "io.kotest.extensions:kotest-extensions-testcontainers", version = "1.3.3" }
 testcontainers-mysql = { module = "org.testcontainers:mysql", version.ref = "test-containers" }
 testcontainers-rabbitmq = { module = "org.testcontainers:rabbitmq", version.ref = "test-containers" }
+kotest-extensions-testcontainers = { module = "io.kotest.extensions:kotest-extensions-testcontainers", version.ref = "kotest-test-containers" }
 
 lettuce-core = { module = "io.lettuce:lettuce-core", version.ref = "lettuce" }
 
@@ -71,7 +76,7 @@ jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", ver
 jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
 jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson" }
 
-tabby-core = { module = "com.sksamuel.tabby:tabby-fp", version = "2.0.19" }
+tabby-core = { module = "com.sksamuel.tabby:tabby-fp", version.ref = "tabby" }
 
 flyway-core = { module = "org.flywaydb:flyway-core", version.ref = "flyway-core" }
 
@@ -102,5 +107,5 @@ mockserver = ["mockserver-netty", "kotest-extensions-mockserver"]
 test-containers = ["testcontainers-mysql", "testcontainers-rabbitmq", "kotest-extensions-testcontainers"]
 
 [plugins]
-shadowjar = { id = "com.github.johnrengelman.shadow", version = "7.1.2" }
+shadowjar = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
 
