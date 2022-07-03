@@ -2,7 +2,7 @@ package com.sksamuel.template.app
 
 import com.sksamuel.cohort.ktor.Cohort
 import com.sksamuel.cohort.ktor.EngineShutdownHook
-import com.sksamuel.template.endpoints.module
+import com.sksamuel.template.server.module
 import io.ktor.server.application.install
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.metrics.micrometer.MicrometerMetrics
@@ -36,9 +36,8 @@ fun server(config: Config, deps: Dependencies): NettyApplicationEngine {
          healthcheck("/liveness", livenessProbes)
          healthcheck("/readiness", readinessProbes)
       }
-      // create your http modules here, passing in dependencies from the context object.
-      // each module can be a set of related endpoints and plugins that you can easily test.
-      // you may only have a single module for your entire app.
+      // create your http module here, passing in dependencies from the context object (or the deps object itself).
+      // for a small enough microservice, you may want only a single module
       module(deps.beerService)
    }
    engineShutdownHook.setEngine(server)

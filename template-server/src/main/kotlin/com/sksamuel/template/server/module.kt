@@ -1,6 +1,5 @@
-package com.sksamuel.template.endpoints
+package com.sksamuel.template.server
 
-import com.sksamuel.template.services.BeerService
 import io.ktor.serialization.jackson.jackson
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
@@ -14,8 +13,8 @@ import io.ktor.server.routing.routing
 import kotlin.time.Duration.Companion.hours
 
 /**
- * Configures the http settings for a ktor server.
- * A module contains routes and the plugins needed for tests.
+ * Configures settings and endpoints for a ktor service.
+ * A module can be re-used for tests by passing in the appropriate dependencies.
  */
 fun Application.module(service: BeerService) {
 

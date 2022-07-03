@@ -5,7 +5,7 @@ import arrow.fx.coroutines.continuations.resource
 import arrow.fx.coroutines.release
 import com.sksamuel.template.datastore.BeerDatastore
 import com.sksamuel.template.datastore.createDataSource
-import com.sksamuel.template.services.BeerService
+import com.sksamuel.template.server.BeerService
 import com.zaxxer.hikari.HikariDataSource
 import io.micrometer.core.instrument.MeterRegistry
 import mu.KotlinLogging

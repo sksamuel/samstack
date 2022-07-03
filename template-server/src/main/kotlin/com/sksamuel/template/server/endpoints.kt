@@ -1,6 +1,5 @@
-package com.sksamuel.template.endpoints
+package com.sksamuel.template.server
 
-import com.sksamuel.template.services.BeerService
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call
 import io.ktor.server.response.respond

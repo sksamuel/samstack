@@ -5,8 +5,7 @@ plugins {
 
 dependencies {
    api(project(":template-datastore"))
-   api(project(":template-services"))
-   api(project(":template-endpoints"))
+   api(project(":template-server"))
 
    api(libs.micrometer.registry.datadog)
 
@@ -20,7 +19,7 @@ docker {
       baseImage.set("openjdk:17-slim")
       ports.set(listOf(8080))
       mainClassName.set("com.sksamuel.template.app.MainKt")
-      // standard JVM flags that set memory suitable for containers
+      // standard JVM flags that use memory settings suitable for containers
       jvmArgs.set(
          listOf(
             "-Djava.security.egd=file:/dev/./urandom",

@@ -1,4 +1,4 @@
-package com.sksamuel.template.services
+package com.sksamuel.template.server
 
 import com.sksamuel.template.datastore.BeerDatastore
 import com.sksamuel.template.myservice.domain.Beer
@@ -8,9 +8,6 @@ import com.sksamuel.template.myservice.domain.Iso3Country
 
 class BeerService(private val datastore: BeerDatastore) {
 
-   /**
-    * Performs validation on the create beer request and inserts into the database.
-    */
    suspend fun brew(name: String, type: BeerType, country: Iso3Country): Result<Beer> {
       val beer = Beer(BeerName(name), type, country)
       return datastore.insert(beer).map { beer }
