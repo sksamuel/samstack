@@ -8,6 +8,11 @@ import io.ktor.server.engine.embeddedServer
 import io.ktor.server.metrics.micrometer.MicrometerMetrics
 import io.ktor.server.netty.Netty
 import io.ktor.server.netty.NettyApplicationEngine
+import io.ktor.server.plugins.compression.Compression
+import io.ktor.server.plugins.defaultheaders.DefaultHeaders
+import io.ktor.server.plugins.hsts.HSTS
+import io.ktor.server.routing.IgnoreTrailingSlash
+import kotlin.time.Duration.Companion.hours
 
 /**
  * Creates the ktor server instance for this application.
@@ -24,7 +29,22 @@ fun server(config: Config, deps: Dependencies): NettyApplicationEngine {
    )
 
    val server = embeddedServer(Netty, port = config.port) {
+      // adds server and date headers
+      install(DefaultHeaders)
+
+      // configures server side micrometer metrics
       install(MicrometerMetrics) { this.registry = deps.registry }
+
+      // allows foo/ and foo to be treated the same
+      install(IgnoreTrailingSlash)
+
+      // enables zip and deflate compression
+      install(Compression)
+
+      // enables strict security headers to force TLS
+      install(HSTS) { maxAgeInSeconds = 1.hours.inWholeSeconds }
+
+      // healthchecks and actuator endpoints
       install(Cohort) {
          this.gc = true
          this.jvmInfo = true
@@ -36,6 +56,7 @@ fun server(config: Config, deps: Dependencies): NettyApplicationEngine {
          healthcheck("/liveness", livenessProbes)
          healthcheck("/readiness", readinessProbes)
       }
+
       // create your http module here, passing in dependencies from the context object (or the deps object itself).
       // for a small enough microservice, you may want only a single module
       module(deps.beerService)

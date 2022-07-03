@@ -3,19 +3,13 @@ package com.sksamuel.template.app
 import io.micrometer.core.instrument.Clock
 import io.micrometer.core.instrument.ImmutableTag
 import io.micrometer.core.instrument.MeterRegistry
-import io.micrometer.core.instrument.binder.jvm.JvmGcMetrics
-import io.micrometer.core.instrument.binder.jvm.JvmHeapPressureMetrics
-import io.micrometer.core.instrument.binder.jvm.JvmInfoMetrics
 import io.micrometer.core.instrument.binder.jvm.JvmMemoryMetrics
 import io.micrometer.core.instrument.binder.jvm.JvmThreadMetrics
-import io.micrometer.core.instrument.binder.system.DiskSpaceMetrics
 import io.micrometer.core.instrument.binder.system.FileDescriptorMetrics
-import io.micrometer.core.instrument.binder.system.ProcessorMetrics
 import io.micrometer.core.instrument.binder.system.UptimeMetrics
 import io.micrometer.datadog.DatadogConfig
 import io.micrometer.datadog.DatadogMeterRegistry
 import mu.KotlinLogging
-import java.io.File
 import java.net.InetAddress
 import java.time.Duration
 
@@ -31,26 +25,22 @@ data class DatadogHttpConfig(
 
 // these can be removed if you are using APMs from a JVM agent
 private val metrics = listOf(
-   DiskSpaceMetrics(File("/")),
    FileDescriptorMetrics(),
-   JvmGcMetrics(),
-   JvmInfoMetrics(),
-   JvmHeapPressureMetrics(),
    JvmMemoryMetrics(),
    JvmThreadMetrics(),
-   ProcessorMetrics(),
    UptimeMetrics(),
 )
 
 /**
  * Creates the Micrometer [MeterRegistry] backed by datadog collector.
  *
- * @param config datadog config
- * @param env the variable for the environment eg STAGING or PROD.
- * @param serviceName a unique name for this service added as a tag
+ * @param config datadog API keys
+ * @param env sets the environment name, eg STAGING or PROD.
+ * @param serviceName a unique name for this microservice, eg "registration-service"
  */
 fun createMeterRegistry(config: DatadogHttpConfig, env: String, serviceName: String): MeterRegistry {
 
+   // the hostname tag is a special tag that dd uses to distinguish pods
    val hostnameTag = "hostname"
 
    // creates a datadog http based registry
@@ -61,6 +51,8 @@ fun createMeterRegistry(config: DatadogHttpConfig, env: String, serviceName: Str
       override fun enabled(): Boolean = config.enabled
       override fun hostTag(): String = hostnameTag
       override fun get(key: String): String? = null
+
+      // how often to publish to datadog
       override fun step(): Duration = Duration.ofSeconds(30)
    }, Clock.SYSTEM)
 
@@ -73,7 +65,7 @@ fun createMeterRegistry(config: DatadogHttpConfig, env: String, serviceName: Str
    logger.info("Podname=$podname")
 
    // tags we attach to all metrics
-   // can add to expense by expanding out the total number of tags
+   // can increase expense by increasing the total number of custom metrics
    mapOf(
       "service" to serviceName,
       "env" to env,
