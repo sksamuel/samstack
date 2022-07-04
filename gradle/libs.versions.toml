@@ -47,7 +47,7 @@ ktor-server-hsts = { module = "io.ktor:ktor-server-hsts", version.ref = "ktor" }
 ktor-server-test-host = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor" }
 
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
-ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+ktor-client-apache = { module = "io.ktor:ktor-client-apache", version.ref = "ktor" }
 ktor-client-encoding = { module = "io.ktor:ktor-client-encoding", version.ref = "ktor" }
 
 ktor-serialization-jackson = { module = "io.ktor:ktor-serialization-jackson", version.ref = "ktor" }
@@ -100,7 +100,7 @@ hoplite = ["hoplite-core", "hoplite-yaml", "hoplite-aws"]
 jackson = ["jackson-databind", "jackson-module-kotlin", "jackson-datatype-jsr310"]
 kotest = ["kotest-framework-datatest", "kotest-framework-junit5", "kotest-assertions-core", "kotest-assertions-json", "kotest-property", "kotest-assertions-ktor"]
 ktor-server = ["ktor-server-netty", "ktor-server-compression", "ktor-server-content-negotiation", "ktor-server-metrics-micrometer", "ktor-server-test-host", "ktor-serialization-jackson", "ktor-server-default-headers", "ktor-server-cors", "ktor-server-hsts"]
-ktor-client = ["ktor-client-core", "ktor-client-cio", "ktor-client-encoding", "ktor-serialization-jackson"]
+ktor-client = ["ktor-client-core", "ktor-client-apache", "ktor-client-encoding", "ktor-serialization-jackson"]
 logging = ["logback-classic", "slf4j-api", "kotlin-logging"]
 mockserver = ["mockserver-netty", "kotest-extensions-mockserver"]
 test-containers = ["testcontainers-mysql", "testcontainers-rabbitmq", "kotest-extensions-testcontainers"]
