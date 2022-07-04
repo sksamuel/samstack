@@ -1,4 +1,4 @@
-package com.sksamuel.template.app
+package com.sksamuel.template.datastore
 
 import mu.KotlinLogging
 import org.flywaydb.core.Flyway

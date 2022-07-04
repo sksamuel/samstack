@@ -1,5 +1,6 @@
 package com.sksamuel.template.app
 
+import com.sksamuel.template.datastore.flywayMigrate
 import kotlinx.coroutines.DEBUG_PROPERTY_NAME
 import kotlinx.coroutines.DEBUG_PROPERTY_VALUE_ON
 import mu.KotlinLogging

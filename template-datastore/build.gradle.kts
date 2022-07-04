@@ -8,4 +8,5 @@ dependencies {
    api(libs.spring.jdbc)
    api(libs.hikaricp)
    api(libs.postgresql)
+   api(libs.flyway.core)
 }

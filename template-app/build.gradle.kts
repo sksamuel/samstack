@@ -7,8 +7,6 @@ dependencies {
    api(project(":template-datastore"))
    api(project(":template-server"))
 
-   api(libs.flyway.core)
-
    api(libs.micrometer.registry.datadog)
 
    api(libs.bundles.ktor.server)
