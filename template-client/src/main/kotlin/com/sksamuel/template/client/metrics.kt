@@ -4,6 +4,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpClientPlugin
 import io.ktor.client.request.HttpRequestPipeline
 import io.ktor.client.statement.HttpReceivePipeline
+import io.ktor.client.statement.request
 import io.ktor.http.encodedPath
 import io.ktor.util.AttributeKey
 import io.ktor.util.KtorDsl
@@ -19,7 +20,7 @@ import kotlin.time.toJavaDuration
  *
  * @param registry the register to send metrics to
  */
-public class Micrometer internal constructor(
+class Micrometer internal constructor(
    private val registry: MeterRegistry,
 ) {
 
@@ -53,8 +54,8 @@ public class Micrometer internal constructor(
          scope.receivePipeline.intercept(HttpReceivePipeline.State) {
             plugin.registry.counter(
                "ktor.client.status",
-               "url", context.url.encodedPath,
-               "method", context.method.value.lowercase(),
+               "url", it.request.url.encodedPath,
+               "method", it.request.method.value.lowercase(),
                "status", it.status.value.toString()
             ).increment()
             proceed()
