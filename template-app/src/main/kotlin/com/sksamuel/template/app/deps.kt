@@ -55,6 +55,11 @@ fun dependencies(env: String, serviceName: String, config: Config): Resource<Dep
    )
 }
 
+/**
+ * The [Dependencies] object is a god object that contains all the dependencies of the project.
+ * In an application that uses DI like Spring, this is created automagically for you and is
+ * called something like ApplicationContext.
+ */
 data class Dependencies(
    val registry: MeterRegistry,
    val dataSource: HikariDataSource,
