@@ -31,8 +31,24 @@ private val metrics = listOf(
    UptimeMetrics(),
 )
 
+object DatadogDefaults {
+
+   const val AppNameTag = "service"
+   const val EnvTag = "env"
+   const val PodnameTag = "podname"
+
+   // the hostname tag is a special tag that dd uses to distinguish pods
+   const val HostnameTag = "hostname"
+
+   // default is 10,000 smaller size means more requests but less chance of a timeout
+   const val BatchSize = 1000
+
+   const val HostnameEnvVar = "HOSTNAME"
+   const val PodnameEnvVar = "PODNAME"
+}
+
 /**
- * Creates the Micrometer [MeterRegistry] backed by datadog collector.
+ * Creates the Micrometer [MeterRegistry] backed by a datadog collector.
  *
  * @param config datadog API keys
  * @param env sets the environment name, eg STAGING or PROD.
@@ -40,39 +56,39 @@ private val metrics = listOf(
  */
 fun createMeterRegistry(config: DatadogHttpConfig, env: String, serviceName: String): MeterRegistry {
 
-   // the hostname tag is a special tag that dd uses to distinguish pods
-   val hostnameTag = "hostname"
-
    // creates a datadog http based registry
    val registry = DatadogMeterRegistry(object : DatadogConfig {
       override fun apiKey(): String = config.apiKey
+
+      // required to pass units, not usually required
       override fun applicationKey(): String? = config.applicationKey
-      override fun batchSize(): Int = 1000
+      override fun batchSize(): Int = DatadogDefaults.BatchSize
       override fun enabled(): Boolean = config.enabled
-      override fun hostTag(): String = hostnameTag
+      override fun hostTag(): String = DatadogDefaults.HostnameTag
       override fun get(key: String): String? = null
 
       // how often to publish to datadog
       override fun step(): Duration = Duration.ofSeconds(30)
    }, Clock.SYSTEM)
 
-   // HOSTNAME should be set in the helm chart, otherwise it will try to look it up
-   val hostname = System.getenv("HOSTNAME") ?: InetAddress.getLocalHost().hostName
-   logger.info("Hostname=$hostname")
+   // HostnameEnvVar should be set in the helm chart, otherwise we try to look it up
+   val hostname = System.getenv(DatadogDefaults.HostnameEnvVar) ?: InetAddress.getLocalHost().hostName
 
-   // PODNAME is optional and if required, must be set by your helm chart
-   val podname = System.getenv("PODNAME")
-   logger.info("Podname=$podname")
+   // PodnameEnvVar is optional and if required, must be set by your helm chart
+   val podname = System.getenv(DatadogDefaults.PodnameEnvVar)
 
    // tags we attach to all metrics
-   // can increase expense by increasing the total number of custom metrics
+   // can increase the cost of datadog by increasing the total number of custom metrics
    mapOf(
-      "service" to serviceName,
-      "env" to env,
-      hostnameTag to hostname,
-      "podname" to podname,
+      DatadogDefaults.AppNameTag to serviceName,
+      DatadogDefaults.EnvTag to env,
+      DatadogDefaults.HostnameTag to hostname,
+      DatadogDefaults.PodnameTag to podname,
    ).forEach { (key, value) ->
-      if (value != null) registry.config().commonTags(listOf(ImmutableTag(key, value)))
+      if (value != null) {
+         logger.info { "Datadog common tag $key=$value" }
+         registry.config().commonTags(listOf(ImmutableTag(key, value)))
+      }
    }
 
    metrics.forEach { it.bindTo(registry) }

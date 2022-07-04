@@ -12,7 +12,9 @@ import io.ktor.server.routing.routing
  * Each module can bring in multiple endpoints defined in separate files to keep things clean.
  *
  * A module should only contain server settings required for tests - such as json marshalling.
- * Settings that are only useful when deployed, eg health checks or compression, should be defined in the app module.
+ *
+ * Settings that are only useful when deployed into a real environment, eg metrics or healthchecks,
+ * should be defined server-wide in the app module.
  *
  * A module can be re-used for tests by passing in the appropriate dependencies.
  */
