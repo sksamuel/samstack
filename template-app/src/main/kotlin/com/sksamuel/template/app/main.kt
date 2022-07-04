@@ -42,7 +42,15 @@ suspend fun main() {
 
    val config = config(env)
    dependencies(env, serviceName, config).use { deps ->
-      val server = server(config, deps)
-      server.start(wait = true)
+
+      // we use the APP_TYPE environment variable to determine app type
+      // if not specified then we start the http server
+      when (System.getenv("APP_TYPE")) {
+         "flyway" -> flywayMigrate(deps.dataSource)
+         else -> {
+            val server = createNettyServer(config, deps)
+            server.start(wait = true)
+         }
+      }
    }
 }

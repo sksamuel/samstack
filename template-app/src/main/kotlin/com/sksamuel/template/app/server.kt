@@ -12,7 +12,10 @@ import io.ktor.server.plugins.compression.Compression
 import io.ktor.server.plugins.defaultheaders.DefaultHeaders
 import io.ktor.server.plugins.hsts.HSTS
 import io.ktor.server.routing.IgnoreTrailingSlash
+import mu.KotlinLogging
 import kotlin.time.Duration.Companion.hours
+
+private val logger = KotlinLogging.logger { }
 
 /**
  * Creates the ktor server instance for this application.
@@ -20,7 +23,9 @@ import kotlin.time.Duration.Companion.hours
  *
  * @return the engine instance ready to be started.
  */
-fun server(config: Config, deps: Dependencies): NettyApplicationEngine {
+fun createNettyServer(config: Config, deps: Dependencies): NettyApplicationEngine {
+
+   logger.info { "Creating Netty server @ https://localhost:${config.port}" }
 
    val engineShutdownHook = EngineShutdownHook(
       prewait = config.shutdown.prewait,
