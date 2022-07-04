@@ -54,7 +54,7 @@ public class Micrometer internal constructor(
             plugin.registry.counter(
                "ktor.client.status",
                "url", context.url.encodedPath,
-               "method", context.method.value.lowercase()
+               "method", context.method.value.lowercase(),
                "status", it.status.value.toString()
             ).increment()
             proceed()
