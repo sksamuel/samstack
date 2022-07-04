@@ -43,7 +43,7 @@ fun createDataSource(config: DatabaseConfig, registry: MeterRegistry?): HikariDa
    if (config.poolName != null) hikariConfig.poolName = config.poolName
 
    // this wires in micrometer metrics
-   hikariConfig.metricRegistry = registry
+   if (registry != null) hikariConfig.metricRegistry = registry
 
    return HikariDataSource(hikariConfig)
 }

@@ -26,7 +26,7 @@ private val logger = KotlinLogging.logger { }
  */
 fun createDependencies(env: String, serviceName: String, config: Config): Resource<Dependencies> = resource {
 
-   // -- managed resources (have state to shut down) --
+   // -- managed resources (these have state to shut down) --
 
    val registry = resource {
       createMeterRegistry(config.datadog, env, serviceName)
@@ -42,7 +42,7 @@ fun createDependencies(env: String, serviceName: String, config: Config): Resour
       it.close()
    }.bind()
 
-   // -- unmanaged resources (have no state that requires shutting down) --
+   // -- unmanaged resources (these have no state to shut down so do not need to be wrapped in resource blocks) --
 
    val beerDatastore = BeerDatastore(ds)
    val beerService = BeerService(beerDatastore)
