@@ -23,14 +23,14 @@ private val logger = KotlinLogging.logger { }
  *
  * @return the engine instance ready to be started.
  */
-fun createNettyServer(config: Config, deps: Dependencies): NettyApplicationEngine {
+fun createNettyServer(config: ServerConfig, deps: Dependencies): NettyApplicationEngine {
 
    logger.info { "Creating Netty server @ https://localhost:${config.port}" }
 
    val engineShutdownHook = EngineShutdownHook(
-      prewait = config.shutdown.prewait,
-      gracePeriod = config.shutdown.grace,
-      timeout = config.shutdown.timeout
+      prewait = config.prewait,
+      gracePeriod = config.grace,
+      timeout = config.timeout,
    )
 
    val server = embeddedServer(Netty, port = config.port) {

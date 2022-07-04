@@ -24,7 +24,7 @@ private val logger = KotlinLogging.logger { }
  * @param serviceName a unique name for this service used in logs and metrics
  * @param config the loaded configuration values.
  */
-fun dependencies(env: String, serviceName: String, config: Config): Resource<Dependencies> = resource {
+fun createDependencies(env: String, serviceName: String, config: Config): Resource<Dependencies> = resource {
 
    // -- managed resources (have state to shut down) --
 

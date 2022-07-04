@@ -13,7 +13,7 @@ import kotlin.time.Duration
  * @param env value used to specify which environment file(s) to load, eg PROD or STAGING.
  * @return the constructed [Config] object.
  */
-fun config(env: String) = ConfigLoaderBuilder.default()
+fun createConfig(env: String) = ConfigLoaderBuilder.default()
    .addPreprocessor(AwsSecretsManagerPreprocessor())
    .addPropertySource(PropertySource.resource("/application-${env}.yml", true))
    .addPropertySource(PropertySource.resource("/shared.yml", true)) // shared config goes in shared.yml
@@ -40,13 +40,13 @@ fun config(env: String) = ConfigLoaderBuilder.default()
  *
  */
 data class Config(
-   val port: Int,
-   val shutdown: ShutdownDurations,
+   val server: ServerConfig,
    val datadog: DatadogHttpConfig,
    val db: DatabaseConfig,
 )
 
-data class ShutdownDurations(
+data class ServerConfig(
+   val port: Int,
    val prewait: Duration,
    val grace: Duration,
    val timeout: Duration,

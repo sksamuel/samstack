@@ -40,15 +40,15 @@ suspend fun main() {
    System.setProperty(DEBUG_PROPERTY_NAME, DEBUG_PROPERTY_VALUE_ON)
    logger.info("$DEBUG_PROPERTY_NAME=" + System.getProperty(DEBUG_PROPERTY_NAME))
 
-   val config = config(env)
-   dependencies(env, serviceName, config).use { deps ->
+   val config = createConfig(env)
+   createDependencies(env, serviceName, config).use { deps ->
 
       // we use the APP_TYPE environment variable to determine app type
       // if not specified then we start the http server
       when (System.getenv("APP_TYPE")) {
          "flyway" -> flywayMigrate(deps.dataSource)
          else -> {
-            val server = createNettyServer(config, deps)
+            val server = createNettyServer(config.server, deps)
             server.start(wait = true)
          }
       }
