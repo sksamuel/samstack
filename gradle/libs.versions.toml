@@ -64,6 +64,7 @@ kotest-extensions-mockserver = { module = "io.kotest.extensions:kotest-extension
 
 testcontainers-mysql = { module = "org.testcontainers:mysql", version.ref = "test-containers" }
 testcontainers-rabbitmq = { module = "org.testcontainers:rabbitmq", version.ref = "test-containers" }
+testcontainers-postgres = { module = "org.testcontainers:postgresql", version.ref = "test-containers" }
 kotest-extensions-testcontainers = { module = "io.kotest.extensions:kotest-extensions-testcontainers", version.ref = "kotest-test-containers" }
 
 lettuce-core = { module = "io.lettuce:lettuce-core", version.ref = "lettuce" }
@@ -103,7 +104,7 @@ ktor-server = ["ktor-server-netty", "ktor-server-compression", "ktor-server-cont
 ktor-client = ["ktor-client-core", "ktor-client-apache", "ktor-client-encoding", "ktor-serialization-jackson"]
 logging = ["logback-classic", "slf4j-api", "kotlin-logging"]
 mockserver = ["mockserver-netty", "kotest-extensions-mockserver"]
-test-containers = ["testcontainers-mysql", "testcontainers-rabbitmq", "kotest-extensions-testcontainers"]
+test-containers = ["testcontainers-mysql", "testcontainers-rabbitmq", "testcontainers-postgres", "kotest-extensions-testcontainers"]
 
 [plugins]
 shadowjar = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }

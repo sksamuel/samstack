@@ -45,7 +45,7 @@ class Micrometer internal constructor(
             val time = measureTime { proceed() }
             plugin.registry
                .timer(
-                  "ktor.client.timer",
+                  "ktor.http.client.timer",
                   "url", context.url.encodedPath,
                   "method", context.method.value.lowercase()
                ).record(time.toJavaDuration())
@@ -53,7 +53,7 @@ class Micrometer internal constructor(
 
          scope.receivePipeline.intercept(HttpReceivePipeline.State) {
             plugin.registry.counter(
-               "ktor.client.status",
+               "ktor.http.client.status",
                "url", it.request.url.encodedPath,
                "method", it.request.method.value.lowercase(),
                "status", it.status.value.toString()
