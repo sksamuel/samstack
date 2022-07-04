@@ -83,7 +83,7 @@ spring-jdbc = { module = "org.springframework:spring-jdbc", version.ref = "sprin
 postgresql = { module = "org.postgresql:postgresql", version.ref = "postgres" }
 hikaricp = { module = "com.zaxxer:HikariCP", version.ref = "hikari" }
 
-micrometer-registry-core = { module = "io.micrometer:micrometer-registry-core", version.ref = "micrometer" }
+micrometer-core = { module = "io.micrometer:micrometer-core", version.ref = "micrometer" }
 micrometer-registry-datadog = { module = "io.micrometer:micrometer-registry-datadog", version.ref = "micrometer" }
 
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
