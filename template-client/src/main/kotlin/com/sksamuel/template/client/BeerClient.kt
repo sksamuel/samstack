@@ -26,7 +26,7 @@ class BeerClient(
          socketTimeoutMillis = config.socketTimeoutMillis
       }
       install(HttpRequestRetry) {
-         retryOnServerErrors(maxRetries = 5)
+         retryOnServerErrors(maxRetries = config.maxRetries)
          exponentialDelay()
       }
       expectSuccess = false
