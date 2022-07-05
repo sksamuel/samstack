@@ -3,8 +3,6 @@ package com.sksamuel.template.client
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.HttpClientPlugin
 import io.ktor.client.request.HttpRequestPipeline
-import io.ktor.client.statement.HttpReceivePipeline
-import io.ktor.client.statement.request
 import io.ktor.http.encodedPath
 import io.ktor.util.AttributeKey
 import io.ktor.util.KtorDsl
@@ -47,18 +45,8 @@ class Micrometer internal constructor(
                .timer(
                   "ktor.http.client.timer",
                   "url", context.url.encodedPath,
-                  "method", context.method.value.lowercase()
+                  "method", context.method.value.lowercase(),
                ).record(time.toJavaDuration())
-         }
-
-         scope.receivePipeline.intercept(HttpReceivePipeline.State) {
-            plugin.registry.counter(
-               "ktor.http.client.status",
-               "url", it.request.url.encodedPath,
-               "method", it.request.method.value.lowercase(),
-               "status", it.status.value.toString()
-            ).increment()
-            proceed()
          }
       }
    }
