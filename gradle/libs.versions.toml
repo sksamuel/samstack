@@ -1,6 +1,6 @@
 [versions]
-kotlin = "1.7.0"
-kotlinx-coroutines = "1.6.3"
+kotlin = "1.7.10"
+kotlinx-coroutines = "1.6.4"
 arrow = "1.1.2"
 cohort = "1.4.1"
 flyway-core = "8.5.13"
@@ -21,7 +21,7 @@ postgres = "42.4.0"
 slf4j = "1.7.36"
 shadow = "7.1.2"
 spring-jdbc = "5.3.21"
-tabby = "2.0.19"
+tabby = "2.0.23"
 test-containers = "1.17.3"
 
 [libraries]

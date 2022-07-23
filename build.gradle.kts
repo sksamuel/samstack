@@ -24,8 +24,6 @@ subprojects {
 
    dependencies {
 
-      api(kotlin("stdlib-jdk8"))
-
       api(rootProject.libs.bundles.coroutines)
       api(rootProject.libs.bundles.logging)
       api(rootProject.libs.bundles.arrow)
