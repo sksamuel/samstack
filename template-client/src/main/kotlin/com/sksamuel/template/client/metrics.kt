@@ -5,7 +5,6 @@ import io.ktor.client.plugins.HttpClientPlugin
 import io.ktor.client.request.HttpRequestPipeline
 import io.ktor.http.encodedPath
 import io.ktor.util.AttributeKey
-import io.ktor.util.KtorDsl
 import io.micrometer.core.instrument.MeterRegistry
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry
 import kotlin.time.measureTime
@@ -27,7 +26,6 @@ class Micrometer internal constructor(
    /**
     * A companion object used to install a plugin.
     */
-   @KtorDsl
    companion object Plugin : HttpClientPlugin<Config, Micrometer> {
 
       override val key: AttributeKey<Micrometer> = AttributeKey("Micrometer")
