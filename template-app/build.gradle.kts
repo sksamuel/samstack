@@ -16,7 +16,7 @@ dependencies {
 
 docker {
    javaApplication {
-      baseImage.set("openjdk:17-slim")
+      baseImage.set("eclipse-temurin:17-alpine")
       ports.set(listOf(8080))
       mainClassName.set("com.sksamuel.template.app.MainKt")
       // standard JVM flags that use memory settings suitable for containers
