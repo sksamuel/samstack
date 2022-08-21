@@ -7,8 +7,7 @@ import io.ktor.http.encodedPath
 import io.ktor.util.AttributeKey
 import io.micrometer.core.instrument.MeterRegistry
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry
-import kotlin.time.measureTime
-import kotlin.time.toJavaDuration
+import java.time.Duration
 
 /**
  * Micrometer plugin for [HttpClient].
@@ -38,13 +37,14 @@ class Micrometer internal constructor(
       override fun install(plugin: Micrometer, scope: HttpClient) {
 
          scope.requestPipeline.intercept(HttpRequestPipeline.Before) {
-            val time = measureTime { proceed() }
+            val start = System.currentTimeMillis()
+            proceed()
             plugin.registry
                .timer(
                   "ktor.http.client.timer",
                   "url", context.url.encodedPath,
                   "method", context.method.value.lowercase(),
-               ).record(time.toJavaDuration())
+               ).record(Duration.ofMillis(System.currentTimeMillis() - start))
          }
       }
    }

@@ -47,6 +47,5 @@ subprojects {
    // set all projects to latest LTS of the JDK and stable kotlin version
    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
       kotlinOptions.jvmTarget = "17"
-      kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.time.ExperimentalTime"
    }
 }
