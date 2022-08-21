@@ -1,5 +1,6 @@
 package com.sksamuel.template.app
 
+import com.sksamuel.hoplite.env.Environment
 import com.sksamuel.template.datastore.flywayMigrate
 import kotlinx.coroutines.DEBUG_PROPERTY_NAME
 import kotlinx.coroutines.DEBUG_PROPERTY_VALUE_ON
@@ -25,7 +26,7 @@ suspend fun main() {
    // the ENV_NAME environment variable is used to determine which configuration files to load
    // we default to local so when running locally we don't need to specify the variable.
    // this must be set in your helm charts when deploying to a real environment.
-   val env = System.getenv("ENV_NAME") ?: "local"
+   val env = Environment.fromEnvVar("ENV_NAME")
    logger.info("Environment=$env")
 
    // replace 'template-app' with the name of your app, eg "registration-service"

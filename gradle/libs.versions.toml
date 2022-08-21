@@ -5,7 +5,7 @@ arrow = "1.1.2"
 cohort = "1.4.1"
 flyway-core = "8.5.13"
 hikari = "5.0.1"
-hoplite = "2.2.0"
+hoplite = "2.6.0"
 jackson = "2.13.3"
 kotest = "5.4.2"
 kotest-ktor = "1.0.3"
@@ -29,6 +29,7 @@ test-containers = "1.17.3"
 hoplite-core = { module = "com.sksamuel.hoplite:hoplite-core", version.ref = "hoplite" }
 hoplite-aws = { module = "com.sksamuel.hoplite:hoplite-aws", version.ref = "hoplite" }
 hoplite-yaml = { module = "com.sksamuel.hoplite:hoplite-yaml", version.ref = "hoplite" }
+hoplite-datadog = { module = "com.sksamuel.hoplite:hoplite-micrometer-datadog", version.ref = "hoplite" }
 
 cohort-core = { module = "com.sksamuel.cohort:cohort-core", version.ref = "cohort" }
 cohort-ktor2 = { module = "com.sksamuel.cohort:cohort-ktor2", version.ref = "cohort" }
@@ -97,7 +98,7 @@ arrow-fx-coroutines = { module = "io.arrow-kt:arrow-fx-coroutines", version.ref 
 arrow = ["arrow-fx-coroutines"]
 cohort = ["cohort-core", "cohort-ktor2", "cohort-hikari"]
 coroutines = ["kotlinx-coroutines-core", "kotlinx-coroutines-jdk8"]
-hoplite = ["hoplite-core", "hoplite-yaml", "hoplite-aws"]
+hoplite = ["hoplite-core", "hoplite-yaml", "hoplite-aws", "hoplite-datadog"]
 jackson = ["jackson-databind", "jackson-module-kotlin", "jackson-datatype-jsr310"]
 kotest = ["kotest-framework-datatest", "kotest-framework-junit5", "kotest-assertions-core", "kotest-assertions-json", "kotest-property", "kotest-assertions-ktor"]
 ktor-server = ["ktor-server-netty", "ktor-server-compression", "ktor-server-content-negotiation", "ktor-server-metrics-micrometer", "ktor-server-test-host", "ktor-serialization-jackson", "ktor-server-default-headers", "ktor-server-cors", "ktor-server-hsts"]

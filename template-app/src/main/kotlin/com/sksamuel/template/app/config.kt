@@ -1,9 +1,12 @@
 package com.sksamuel.template.app
 
 import com.sksamuel.hoplite.ConfigLoaderBuilder
-import com.sksamuel.hoplite.PropertySource
+import com.sksamuel.hoplite.addResourceSource
 import com.sksamuel.hoplite.aws.AwsSecretsManagerPreprocessor
+import com.sksamuel.hoplite.env.Environment
+import com.sksamuel.hoplite.secrets.PrefixObfuscator
 import com.sksamuel.template.datastore.DatabaseConfig
+import io.micrometer.datadog.DatadogConfig
 import kotlin.time.Duration
 
 /**
@@ -13,11 +16,15 @@ import kotlin.time.Duration
  * @param env value used to specify which environment file(s) to load, eg PROD or STAGING.
  * @return the constructed [Config] object.
  */
-fun createConfig(env: String) = ConfigLoaderBuilder.default()
-   .addPreprocessor(AwsSecretsManagerPreprocessor())
-   .addPropertySource(PropertySource.resource("/application-${env}.yml", true))
-   .addPropertySource(PropertySource.resource("/shared.yml", true)) // shared config goes in shared.yml
-   .report() // shows config values at startup with strings obfuscated for security
+fun createConfig(env: Environment) = ConfigLoaderBuilder.default()
+   // .addPreprocessor(AwsSecretsManagerPreprocessor(report = true)) // uncomment to enable aws secrets processing
+   // .addPreprocessor(GcpSecretManagerPreprocessor(report = true)) // uncomment to enable gcp secrets processing
+   // .addPreprocessor(VaultPreprocessor(report = true)) // uncomment to enable hashicorp vault secrets processing
+   // .addPreprocessor(AzureKeyVaultPreprocessor(report = true)) // uncomment to enable azure secrets processing
+   .addResourceSource("/application-${env}.yml", optional = true) // env specific settings
+   .addResourceSource("/shared.yml", optional = true) // shared config goes in shared.yml
+   .withReport() // shows config values at startup
+   .withObfuscator(PrefixObfuscator(4)) // shows 4 characters from each value in the report, with the rest obfuscated
    .build()
    .loadConfigOrThrow<Config>()
 
@@ -41,7 +48,7 @@ fun createConfig(env: String) = ConfigLoaderBuilder.default()
  */
 data class Config(
    val server: ServerConfig,
-   val datadog: DatadogHttpConfig,
+   val datadog: DatadogConfig,
    val db: DatabaseConfig,
 )
 

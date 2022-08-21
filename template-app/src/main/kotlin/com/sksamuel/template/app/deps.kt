@@ -3,6 +3,7 @@ package com.sksamuel.template.app
 import arrow.fx.coroutines.Resource
 import arrow.fx.coroutines.continuations.resource
 import arrow.fx.coroutines.release
+import com.sksamuel.hoplite.env.Environment
 import com.sksamuel.template.datastore.BeerDatastore
 import com.sksamuel.template.datastore.createDataSource
 import com.sksamuel.template.server.BeerService
@@ -24,12 +25,12 @@ private val logger = KotlinLogging.logger { }
  * @param serviceName a unique name for this service used in logs and metrics
  * @param config the loaded configuration values.
  */
-fun createDependencies(env: String, serviceName: String, config: Config): Resource<Dependencies> = resource {
+fun createDependencies(env: Environment, serviceName: String, config: Config): Resource<Dependencies> = resource {
 
    // -- managed resources (these have state to shut down) --
 
    val registry = resource {
-      createMeterRegistry(config.datadog, env, serviceName)
+      createDatadogMeterRegistry(config.datadog, env, serviceName)
    }.release {
       logger.info { "Closing meter registry" }
       it.close()
