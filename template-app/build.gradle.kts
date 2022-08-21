@@ -1,6 +1,6 @@
 plugins {
    kotlin("jvm")
-   id("com.bmuschko.docker-java-application").version("8.0.0")
+   id("com.bmuschko.docker-java-application")
 }
 
 dependencies {
