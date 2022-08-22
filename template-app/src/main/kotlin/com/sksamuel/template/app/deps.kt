@@ -14,7 +14,7 @@ import mu.KotlinLogging
 private val logger = KotlinLogging.logger { }
 
 /**
- * Creates all the dependencies used by this service wrapped in a [Dependencies] object.
+ * Creates all the dependencies used by this service wrapped in a [App] object.
  *
  * Each managed resource is wrapped in a [Resource] object, which are combined using the bind function,
  * so that they are all released gracefully together on shutdown.
@@ -25,7 +25,7 @@ private val logger = KotlinLogging.logger { }
  * @param serviceName a unique name for this service used in logs and metrics
  * @param config the loaded configuration values.
  */
-fun createDependencies(env: Environment, serviceName: String, config: Config): Resource<Dependencies> = resource {
+fun createDependencies(env: Environment, serviceName: String, config: Config): Resource<App> = resource {
 
    // -- managed resources (these have state to shut down) --
 
@@ -48,7 +48,7 @@ fun createDependencies(env: Environment, serviceName: String, config: Config): R
    val beerDatastore = BeerDatastore(ds)
    val beerService = BeerService(beerDatastore)
 
-   Dependencies(
+   App(
       registry,
       ds,
       beerDatastore,
@@ -57,13 +57,14 @@ fun createDependencies(env: Environment, serviceName: String, config: Config): R
 }
 
 /**
- * The [Dependencies] object is a god object that contains all the dependencies of the project.
- * In an application that uses DI like Spring, this is created automagically for you and is
- * called something like ApplicationContext.
+ * The [App] object is a god object that contains all the dependencies of the project.
+ *
+ * In an dependency injection framework like Spring, this is created automagically for you and is
+ * called ApplicationContext.
  */
-data class Dependencies(
+data class App(
    val registry: MeterRegistry,
-   val dataSource: HikariDataSource,
+   val ds: HikariDataSource,
    val beerDatastore: BeerDatastore,
    val beerService: BeerService,
 )

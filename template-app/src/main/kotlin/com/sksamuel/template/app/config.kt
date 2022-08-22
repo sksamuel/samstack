@@ -2,7 +2,6 @@ package com.sksamuel.template.app
 
 import com.sksamuel.hoplite.ConfigLoaderBuilder
 import com.sksamuel.hoplite.addResourceSource
-import com.sksamuel.hoplite.aws.AwsSecretsManagerPreprocessor
 import com.sksamuel.hoplite.env.Environment
 import com.sksamuel.hoplite.secrets.PrefixObfuscator
 import com.sksamuel.template.datastore.DatabaseConfig

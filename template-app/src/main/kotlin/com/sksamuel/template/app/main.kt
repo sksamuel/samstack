@@ -26,7 +26,7 @@ suspend fun main() {
    // the ENV_NAME environment variable is used to determine which configuration files to load
    // we default to local so when running locally we don't need to specify the variable.
    // this must be set in your helm charts when deploying to a real environment.
-   val env = Environment.fromEnvVar("ENV_NAME")
+   val env = Environment.fromEnvVar("ENV_NAME", fallback = Environment.local)
    logger.info("Environment=$env")
 
    // replace 'template-app' with the name of your app, eg "registration-service"
@@ -43,14 +43,14 @@ suspend fun main() {
    logger.info("$DEBUG_PROPERTY_NAME=" + System.getProperty(DEBUG_PROPERTY_NAME))
 
    val config = createConfig(env)
-   createDependencies(env, serviceName, config).use { deps ->
+   createDependencies(env, serviceName, config).use { app ->
 
       // we use the APP_TYPE environment variable to determine app type
       // if not specified then we start the http server
       when (System.getenv("APP_TYPE")) {
-         "flyway" -> flywayMigrate(deps.dataSource)
+         "flyway" -> flywayMigrate(app.ds)
          else -> {
-            val server = createNettyServer(config.server, deps)
+            val server = createNettyServer(config.server, app)
             server.start(wait = true)
          }
       }

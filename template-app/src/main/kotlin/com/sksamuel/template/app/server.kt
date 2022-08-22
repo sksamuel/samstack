@@ -23,7 +23,7 @@ private val logger = KotlinLogging.logger { }
  *
  * @return the engine instance ready to be started.
  */
-fun createNettyServer(config: ServerConfig, deps: Dependencies): NettyApplicationEngine {
+fun createNettyServer(config: ServerConfig, app: App): NettyApplicationEngine {
 
    logger.info { "Creating Netty server @ https://localhost:${config.port}" }
 
@@ -38,7 +38,7 @@ fun createNettyServer(config: ServerConfig, deps: Dependencies): NettyApplicatio
       install(DefaultHeaders)
 
       // configures server side micrometer metrics
-      install(MicrometerMetrics) { this.registry = deps.registry }
+      install(MicrometerMetrics) { this.registry = app.registry }
 
       // allows foo/ and foo to be treated the same
       install(IgnoreTrailingSlash)
@@ -57,14 +57,14 @@ fun createNettyServer(config: ServerConfig, deps: Dependencies): NettyApplicatio
          this.threadDump = true
          this.heapDump = true
          onShutdown(engineShutdownHook)
-         healthcheck("/startup", startupProbes(deps.dataSource))
+         healthcheck("/startup", startupProbes(app.ds))
          healthcheck("/liveness", livenessProbes())
          healthcheck("/readiness", readinessProbes())
       }
 
       // create your http module here, passing in dependencies from the context object (or the deps object itself).
       // for a small enough microservice, you may want only a single module
-      module(deps.beerService)
+      module(app.beerService)
    }
    engineShutdownHook.setEngine(server)
    return server
