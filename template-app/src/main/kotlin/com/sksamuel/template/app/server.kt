@@ -1,9 +1,9 @@
 package com.sksamuel.template.app
 
 import com.sksamuel.cohort.ktor.Cohort
-import com.sksamuel.cohort.ktor.EngineShutdownHook
 import com.sksamuel.template.server.module
 import io.ktor.server.application.install
+import io.ktor.server.engine.addShutdownHook
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.metrics.micrometer.MicrometerMetrics
 import io.ktor.server.netty.Netty
@@ -23,15 +23,9 @@ private val logger = KotlinLogging.logger { }
  *
  * @return the engine instance ready to be started.
  */
-fun createNettyServer(config: ServerConfig, app: App): NettyApplicationEngine {
+fun createNettyServer(config: Config, app: App): NettyApplicationEngine {
 
    logger.info { "Creating Netty server @ https://localhost:${config.port}" }
-
-   val engineShutdownHook = EngineShutdownHook(
-      prewait = config.prewait,
-      gracePeriod = config.grace,
-      timeout = config.timeout,
-   )
 
    val server = embeddedServer(Netty, port = config.port) {
       // adds server and date headers
@@ -56,7 +50,6 @@ fun createNettyServer(config: ServerConfig, app: App): NettyApplicationEngine {
          this.sysprops = true
          this.threadDump = true
          this.heapDump = true
-         onShutdown(engineShutdownHook)
          healthcheck("/startup", startupProbes(app.ds))
          healthcheck("/liveness", livenessProbes())
          healthcheck("/readiness", readinessProbes())
@@ -66,6 +59,10 @@ fun createNettyServer(config: ServerConfig, app: App): NettyApplicationEngine {
       // for a small enough microservice, you may want only a single module
       module(app.beerService)
    }
-   engineShutdownHook.setEngine(server)
+
+   server.addShutdownHook {
+      server.stop(config.quietPeriod.inWholeMilliseconds, config.shutdownTimeout.inWholeMilliseconds)
+   }
+
    return server
 }

@@ -2,11 +2,15 @@ package com.sksamuel.template.app
 
 import com.sksamuel.hoplite.env.Environment
 import com.sksamuel.template.datastore.flywayMigrate
+import io.ktor.server.engine.addShutdownHook
+import io.ktor.server.engine.stop
 import kotlinx.coroutines.DEBUG_PROPERTY_NAME
 import kotlinx.coroutines.DEBUG_PROPERTY_VALUE_ON
 import mu.KotlinLogging
 import java.time.ZoneOffset
 import java.util.TimeZone
+import java.util.concurrent.TimeUnit
+import kotlin.time.Duration.Companion.seconds
 
 private val logger = KotlinLogging.logger { }
 
@@ -24,8 +28,8 @@ suspend fun main() {
    }
 
    // the ENV_NAME environment variable is used to determine which configuration files to load
-   // we default to local so when running locally we don't need to specify the variable.
    // this must be set in your helm charts when deploying to a real environment.
+   // we default to local so when running locally we don't need to specify the variable.
    val env = Environment.fromEnvVar("ENV_NAME", fallback = Environment.local)
    logger.info("Environment=$env")
 
@@ -50,8 +54,13 @@ suspend fun main() {
       when (System.getenv("APP_TYPE")) {
          "flyway" -> flywayMigrate(app.ds)
          else -> {
-            val server = createNettyServer(config.server, app)
+            val server = createNettyServer(config, app)
+            server.addShutdownHook {
+               println("Shutting down server")
+               server.stop(5.seconds.inWholeSeconds, 20.seconds.inWholeSeconds, TimeUnit.SECONDS)
+            }
             server.start(wait = true)
+            println("Server stopped")
          }
       }
    }

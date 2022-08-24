@@ -23,6 +23,7 @@ fun createConfig(env: Environment) = ConfigLoaderBuilder.default()
    .addResourceSource("/application-${env}.yml", optional = true) // env specific settings
    .addResourceSource("/shared.yml", optional = true) // shared config goes in shared.yml
    .withReport() // shows config values at startup
+   .withEnvironment(env)
    .withObfuscator(PrefixObfuscator(4)) // shows 4 characters from each value in the report, with the rest obfuscated
    .build()
    .loadConfigOrThrow<Config>()
@@ -46,14 +47,9 @@ fun createConfig(env: Environment) = ConfigLoaderBuilder.default()
  *
  */
 data class Config(
-   val server: ServerConfig,
+   val port: Int,
+   val quietPeriod: Duration,
+   val shutdownTimeout: Duration,
    val datadog: DatadogConfig,
    val db: DatabaseConfig,
-)
-
-data class ServerConfig(
-   val port: Int,
-   val prewait: Duration,
-   val grace: Duration,
-   val timeout: Duration,
 )
