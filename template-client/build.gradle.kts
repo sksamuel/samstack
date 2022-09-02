@@ -1,9 +1,5 @@
-plugins {
-   kotlin("jvm")
-}
-
 dependencies {
-   api(project(":template-domain"))
+   api(projects.templateDomain)
    implementation(libs.bundles.ktor.client)
    implementation(libs.micrometer.core)
 }

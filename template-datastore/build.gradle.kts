@@ -1,9 +1,5 @@
-plugins {
-   kotlin("jvm")
-}
-
 dependencies {
-   api(project(":template-domain"))
+   api(projects.templateDomain)
    api(libs.micrometer.registry.datadog)
    api(libs.spring.jdbc)
    api(libs.hikaricp)

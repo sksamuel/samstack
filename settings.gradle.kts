@@ -1,12 +1,19 @@
-include("template-app")
-include("template-client")
-include("template-datastore")
-include("template-domain")
-include("template-server")
-include("template-testkit")
+rootProject.name = "template"
+
+include(
+   ":template-app",
+   ":template-client",
+   ":template-datastore",
+   ":template-domain",
+   ":template-server",
+   ":template-testkit"
+)
 
 pluginManagement {
    plugins {
       id("com.bmuschko.docker-java-application") version ("8.0.0")
    }
 }
+
+enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

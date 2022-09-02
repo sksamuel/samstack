@@ -1,11 +1,11 @@
 plugins {
-   kotlin("jvm")
    id("com.bmuschko.docker-java-application")
 }
 
 dependencies {
-   api(project(":template-datastore"))
-   api(project(":template-server"))
+   api(projects.templateDomain)
+   api(projects.templateDatastore)
+   api(projects.templateServer)
 
    api(libs.micrometer.registry.datadog)
 

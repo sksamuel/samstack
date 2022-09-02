@@ -1,10 +1,6 @@
-plugins {
-   kotlin("jvm")
-}
-
 dependencies {
-   api(project(":template-domain"))
-   api(project(":template-datastore"))
-   api(project(":template-testkit"))
+   api(projects.templateDomain)
+   api(projects.templateDatastore)
+   api(projects.templateTestkit)
    implementation(libs.bundles.ktor.server)
 }
