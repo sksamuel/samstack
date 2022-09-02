@@ -9,7 +9,6 @@ import io.ktor.server.metrics.micrometer.MicrometerMetrics
 import io.ktor.server.netty.Netty
 import io.ktor.server.netty.NettyApplicationEngine
 import io.ktor.server.plugins.compression.Compression
-import io.ktor.server.plugins.defaultheaders.DefaultHeaders
 import io.ktor.server.plugins.hsts.HSTS
 import io.ktor.server.routing.IgnoreTrailingSlash
 import mu.KotlinLogging
@@ -28,8 +27,6 @@ fun createNettyServer(config: Config, app: App): NettyApplicationEngine {
    logger.info { "Creating Netty server @ https://localhost:${config.port}" }
 
    val server = embeddedServer(Netty, port = config.port) {
-      // adds server and date headers
-      install(DefaultHeaders)
 
       // configures server side micrometer metrics
       install(MicrometerMetrics) { this.registry = app.registry }

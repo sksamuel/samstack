@@ -2,7 +2,7 @@
 kotlin = "1.7.10"
 kotlinx-coroutines = "1.6.4"
 arrow = "1.1.2"
-cohort = "1.4.1"
+cohort = "1.7.0"
 flyway-core = "8.5.13"
 hikari = "5.0.1"
 hoplite = "2.6.1"
