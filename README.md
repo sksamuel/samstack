@@ -83,11 +83,11 @@ but try to avoid the more advanced FP features that don't translate well to Kotl
 
 ## Modules
 
-* myservice-domain - place your domain classes here so they are shared between datastores and services
-* myservice-datastore - place your database or cache repositories here
-* myservice-services - place your business logic here
-* myservice-endpoints - place your endpoints in here
-* myservice-app - an assembly module that builds a docker image for deployment. Config files and logging configuration
+* template-domain - place your domain classes here so they are shared between datastores and services
+* template-datastore - place your database or cache repositories here
+* template-services - place your business logic and endpoints here
+* template-client - create a reusable client here for internal services to use
+* template-app - an assembly module that builds a docker image for deployment. Config files and logging configuration
   lives here.
 
 ## Config
