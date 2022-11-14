@@ -1,5 +1,5 @@
 dependencies {
    api(projects.templateDomain)
-   implementation(libs.bundles.ktor.client)
-   implementation(libs.micrometer.core)
+   api("io.ktor:ktor-client-apache:2.1.3")
+   implementation("io.ktor:ktor-client-encoding:2.1.3")
 }

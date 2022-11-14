@@ -8,18 +8,14 @@ import io.ktor.client.plugins.HttpRequestRetry
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.compression.ContentEncoding
 import io.ktor.client.request.get
-import io.ktor.client.statement.HttpResponse
 import io.ktor.client.statement.readBytes
-import io.micrometer.core.instrument.MeterRegistry
 
 class BeerClient(
    private val config: ClientConfig,
-   private val registry: MeterRegistry?,
 ) {
 
    private val client = HttpClient(Apache) {
       install(ContentEncoding)
-      registry?.let { r -> install(Micrometer) { this.registry = r } }
       install(HttpTimeout) {
          requestTimeoutMillis = config.requestTimeoutMillis
          connectTimeoutMillis = config.connectTimeoutMillis
@@ -38,7 +34,7 @@ class BeerClient(
     * Returns all beers in the system.
     */
    suspend fun getBeers(): Result<List<Beer>> = runCatching {
-      val resp: HttpResponse = client.get("/beer")
+      val resp = client.get("/beer")
       resp.readBytes().fromJson<List<Beer>>()
    }
 }

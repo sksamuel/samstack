@@ -11,6 +11,7 @@ import com.sksamuel.cohort.threads.ThreadStateHealthCheck
 import com.zaxxer.hikari.HikariDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlin.time.Duration.Companion.seconds
+import kotlin.time.ExperimentalTime
 
 // -- this file contains the various kubernetes health checks --
 
@@ -31,6 +32,7 @@ fun startupProbes(ds: HikariDataSource) = HealthCheckRegistry(Dispatchers.Defaul
  * These probes should be used to check for scenarios that warrant a restart, such as out of memory,
  * thread deadlocks, or too many open file descriptors.
  */
+@OptIn(ExperimentalTime::class)
 fun livenessProbes() = HealthCheckRegistry(Dispatchers.Default) {
    register(ThreadDeadlockHealthCheck(2), 15.seconds)
    register(OpenFileDescriptorsHealthCheck(32_000), 15.seconds)

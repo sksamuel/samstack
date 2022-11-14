@@ -6,7 +6,7 @@ buildscript {
 }
 
 plugins {
-   kotlin("jvm").version("1.7.10")
+   kotlin("jvm").version("1.7.20")
 }
 
 group = "com.sksamuel.template"
@@ -24,14 +24,22 @@ subprojects {
 
    dependencies {
 
-      api(rootProject.libs.bundles.coroutines)
-      api(rootProject.libs.bundles.logging)
-      api(rootProject.libs.bundles.arrow)
-      api(rootProject.libs.tabby.core)
+      implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+      implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
 
-      testImplementation(rootProject.libs.bundles.kotest)
-      testImplementation(rootProject.libs.bundles.test.containers)
-      testImplementation(rootProject.libs.bundles.mockserver)
+      implementation("io.github.microutils:kotlin-logging:3.0.3")
+      implementation("ch.qos.logback:logback-classic:1.4.4")
+      implementation("org.slf4j:slf4j-api:2.0.3")
+
+      implementation("com.sksamuel.tabby:tabby-fp-jvm:2.0.36")
+
+      testImplementation("io.kotest:kotest-framework-datatest:5.5.4")
+      testImplementation("io.kotest:kotest-runner-junit5:5.5.4")
+      testImplementation("io.kotest:kotest-assertions-core:5.5.4")
+      testImplementation("io.kotest:kotest-property:5.5.4")
+      testImplementation("io.kotest.extensions:kotest-extensions-testcontainers:1.3.4")
+      testImplementation("io.kotest.extensions:kotest-extensions-httpstub:1.0.0")
+      testImplementation("org.testcontainers:postgresql:1.17.4")
    }
 
    // configure kotest to run

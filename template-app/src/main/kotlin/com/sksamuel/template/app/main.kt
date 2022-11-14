@@ -10,7 +10,7 @@ import java.util.TimeZone
 
 private val logger = KotlinLogging.logger { }
 
-suspend fun main() {
+fun main() {
 
    logger.info {
       """
@@ -39,16 +39,15 @@ suspend fun main() {
    System.setProperty(DEBUG_PROPERTY_NAME, DEBUG_PROPERTY_VALUE_ON)
 
    val config = createConfig(env)
-   createDependencies(env, serviceName, config).use { app ->
+   val deps = createDependencies(env, serviceName, config)
 
-      // we use the APP_TYPE environment variable to determine app type
-      // if not specified then we start the http server
-      when (System.getenv("APP_TYPE")) {
-         "flyway" -> flywayMigrate(app.ds)
-         else -> {
-            val server = createNettyServer(config, app)
-            server.start(wait = true)
-         }
+   // we use the APP_TYPE environment variable to determine app type
+   // if not specified then we start the http server
+   when (System.getenv("APP_TYPE")) {
+      "flyway" -> flywayMigrate(deps.ds)
+      else -> {
+         val server = createNettyServer(config, deps)
+         server.start(wait = true)
       }
    }
 }

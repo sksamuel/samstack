@@ -6,12 +6,11 @@ include(
    ":template-datastore",
    ":template-domain",
    ":template-server",
-   ":template-testkit"
 )
 
 pluginManagement {
    plugins {
-      id("com.bmuschko.docker-java-application") version ("8.0.0")
+      id("com.bmuschko.docker-java-application") version ("9.0.0")
    }
 }
 

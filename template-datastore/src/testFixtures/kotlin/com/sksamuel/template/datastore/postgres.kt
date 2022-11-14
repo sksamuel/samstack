@@ -1,4 +1,4 @@
-package com.sksamuel.template.testkit
+package com.sksamuel.template.datastore
 
 import org.testcontainers.containers.PostgreSQLContainer
 import org.testcontainers.utility.DockerImageName
