@@ -1,7 +1,7 @@
 package com.sksamuel.template.app
 
 import com.sksamuel.cohort.ktor.Cohort
-import com.sksamuel.template.server.beerEndpoints
+import com.sksamuel.template.services.beerEndpoints
 import io.ktor.serialization.jackson.jackson
 import io.ktor.server.application.install
 import io.ktor.server.engine.addShutdownHook

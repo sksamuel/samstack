@@ -5,7 +5,7 @@ include(
    ":template-client",
    ":template-datastore",
    ":template-domain",
-   ":template-server",
+   ":template-services",
 )
 
 pluginManagement {

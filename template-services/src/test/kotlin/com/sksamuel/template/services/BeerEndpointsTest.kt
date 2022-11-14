@@ -1,4 +1,4 @@
-package com.sksamuel.template.server
+package com.sksamuel.template.services
 
 import com.sksamuel.template.datastore.BeerDatastore
 import io.kotest.core.extensions.install

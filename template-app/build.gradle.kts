@@ -5,7 +5,7 @@ plugins {
 dependencies {
    api(projects.templateDomain)
    api(projects.templateDatastore)
-   api(projects.templateServer)
+   api(projects.templateServices)
 
    api("com.sksamuel.hoplite:hoplite-core:2.6.5")
    api("com.sksamuel.hoplite:hoplite-yaml:2.6.5")

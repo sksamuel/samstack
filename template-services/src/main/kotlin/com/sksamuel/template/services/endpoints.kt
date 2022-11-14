@@ -1,4 +1,4 @@
-package com.sksamuel.template.server
+package com.sksamuel.template.services
 
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.call

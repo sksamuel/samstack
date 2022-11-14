@@ -3,7 +3,7 @@ package com.sksamuel.template.app
 import com.sksamuel.hoplite.env.Environment
 import com.sksamuel.template.datastore.BeerDatastore
 import com.sksamuel.template.datastore.createDataSource
-import com.sksamuel.template.server.BeerService
+import com.sksamuel.template.services.BeerService
 import com.zaxxer.hikari.HikariDataSource
 import io.micrometer.core.instrument.MeterRegistry
 import mu.KotlinLogging
