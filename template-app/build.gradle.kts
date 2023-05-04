@@ -7,13 +7,13 @@ dependencies {
    api(projects.templateDatastore)
    api(projects.templateServices)
 
-   api("com.sksamuel.hoplite:hoplite-core:2.6.5")
-   api("com.sksamuel.hoplite:hoplite-yaml:2.6.5")
-   api("com.sksamuel.hoplite:hoplite-aws:2.6.5")
-   api("com.sksamuel.hoplite:hoplite-micrometer-datadog:2.6.5")
+   api("com.sksamuel.hoplite:hoplite-core:2.7.4")
+   api("com.sksamuel.hoplite:hoplite-yaml:2.7.4")
+   api("com.sksamuel.hoplite:hoplite-aws:2.7.4")
+   api("com.sksamuel.hoplite:hoplite-micrometer-datadog:2.7.4")
 
-   api("io.micrometer:micrometer-core:1.10.0")
-   api("io.micrometer:micrometer-registry-datadog:1.10.0")
+   api("io.micrometer:micrometer-core:1.10.6")
+   api("io.micrometer:micrometer-registry-datadog:1.10.6")
 
    // health checks and info endpoints
    implementation("com.sksamuel.cohort:cohort-core:1.7.3")

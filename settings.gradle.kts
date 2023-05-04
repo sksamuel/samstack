@@ -10,7 +10,7 @@ include(
 
 pluginManagement {
    plugins {
-      id("com.bmuschko.docker-java-application") version ("9.0.0")
+      id("com.bmuschko.docker-java-application") version ("9.3.1")
    }
 }
 
