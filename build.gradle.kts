@@ -6,9 +6,6 @@ plugins {
    alias(deps.plugins.kotlin)
 }
 
-group = "com.sksamuel.template"
-version = "0.0.1-SNAPSHOT"
-
 allprojects {
    repositories {
       mavenCentral()
@@ -36,21 +33,22 @@ subprojects {
          testImplementation(deps.bundles.testcontainers)
       }
    }
-
-   // configure kotest to run
-   tasks.test {
-      useJUnitPlatform()
-      testLogging {
-         showExceptions = true
-         showStandardStreams = true
-         exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+   tasks {
+      // configure kotest to run
+      test {
+         useJUnitPlatform()
+         testLogging {
+            showExceptions = true
+            showStandardStreams = true
+            exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+         }
       }
-   }
-
-   val compileKotlin: KotlinJvmCompile by tasks
-   compileKotlin.compilerOptions {
-      apiVersion.set(KotlinVersion.KOTLIN_1_8)
-      languageVersion.set(KotlinVersion.KOTLIN_1_8)
-      jvmTarget.set(JvmTarget.JVM_17)
+      withType<KotlinJvmCompile> {
+         compilerOptions {
+            apiVersion.set(KotlinVersion.KOTLIN_1_8)
+            languageVersion.set(KotlinVersion.KOTLIN_1_8)
+            jvmTarget.set(JvmTarget.JVM_17)
+         }
+      }
    }
 }
