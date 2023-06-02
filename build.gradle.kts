@@ -2,13 +2,6 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
-buildscript {
-   repositories {
-      mavenCentral()
-      mavenLocal()
-   }
-}
-
 plugins {
    alias(deps.plugins.kotlin)
 }
@@ -17,6 +10,13 @@ group = "com.sksamuel.template"
 version = "0.0.1-SNAPSHOT"
 
 allprojects {
+   repositories {
+      mavenCentral()
+      mavenLocal()
+   }
+}
+
+buildscript {
    repositories {
       mavenCentral()
       mavenLocal()
