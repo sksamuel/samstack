@@ -14,5 +14,13 @@ pluginManagement {
    }
 }
 
+dependencyResolutionManagement {
+   versionCatalogs {
+      create("deps") {
+         from(files("deps.versions.toml"))
+      }
+   }
+}
+
 enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

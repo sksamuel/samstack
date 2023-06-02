@@ -1,16 +1,10 @@
-buildscript {
-   repositories {
-      mavenCentral()
-      mavenLocal()
-   }
-}
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 plugins {
-   kotlin("jvm").version("1.8.21")
+   alias(deps.plugins.kotlin)
 }
-
-group = "com.sksamuel.template"
-version = "0.0.1-SNAPSHOT"
 
 allprojects {
    repositories {
@@ -19,45 +13,42 @@ allprojects {
    }
 }
 
-subprojects {
-   apply(plugin = "org.jetbrains.kotlin.jvm")
-
-   dependencies {
-
-      implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
-      implementation("org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:1.6.4")
-
-      implementation("io.github.microutils:kotlin-logging:3.0.5")
-      implementation("ch.qos.logback:logback-classic:1.4.4")
-      implementation("org.slf4j:slf4j-api:2.0.7")
-
-      implementation("com.sksamuel.tabby:tabby-fp:2.2.3")
-
-      testImplementation("io.kotest:kotest-framework-datatest:5.6.1")
-      testImplementation("io.kotest:kotest-runner-junit5:5.6.1")
-      testImplementation("io.kotest:kotest-assertions-core:5.6.1")
-      testImplementation("io.kotest:kotest-property:5.6.1")
-      testImplementation("io.kotest.extensions:kotest-extensions-testcontainers:1.3.4")
-      testImplementation("io.kotest.extensions:kotest-extensions-httpstub:2.0.0")
-      testImplementation("org.testcontainers:postgresql:1.18.0")
+buildscript {
+   repositories {
+      mavenCentral()
+      mavenLocal()
    }
+}
 
-   // configure kotest to run
-   tasks.test {
-      useJUnitPlatform()
-      testLogging {
-         showExceptions = true
-         showStandardStreams = true
-         exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+subprojects {
+   apply(plugin = rootProject.deps.plugins.kotlin.get().pluginId)
+   dependencies {
+      with(rootProject) {
+         implementation(deps.bundles.kotlinx.coroutines)
+         implementation(deps.bundles.logging)
+
+         implementation(deps.tabby)
+
+         testImplementation(deps.bundles.kotest)
+         testImplementation(deps.bundles.testcontainers)
       }
    }
-
-   // set all projects to latest LTS of the JDK and stable kotlin version
-   tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-      kotlinOptions {
-         jvmTarget = "17"
-         apiVersion = "1.8"
-         languageVersion = "1.8"
+   tasks {
+      // configure kotest to run
+      test {
+         useJUnitPlatform()
+         testLogging {
+            showExceptions = true
+            showStandardStreams = true
+            exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+         }
+      }
+      withType<KotlinJvmCompile> {
+         compilerOptions {
+            apiVersion.set(KotlinVersion.KOTLIN_1_8)
+            languageVersion.set(KotlinVersion.KOTLIN_1_8)
+            jvmTarget.set(JvmTarget.JVM_17)
+         }
       }
    }
 }
