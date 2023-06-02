@@ -6,7 +6,7 @@ buildscript {
 }
 
 plugins {
-   kotlin("jvm").version("1.8.21")
+   alias(deps.plugins.kotlin)
 }
 
 group = "com.sksamuel.template"
@@ -20,10 +20,9 @@ allprojects {
 }
 
 subprojects {
-   apply(plugin = "org.jetbrains.kotlin.jvm")
-
+   apply(plugin = rootProject.deps.plugins.kotlin.get().pluginId)
    dependencies {
-      rootProject.run {
+      with(rootProject) {
          implementation(deps.bundles.kotlinx.coroutines)
          implementation(deps.bundles.logging)
 
