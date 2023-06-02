@@ -1,3 +1,7 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
+
 buildscript {
    repositories {
       mavenCentral()
@@ -43,12 +47,10 @@ subprojects {
       }
    }
 
-   // set all projects to latest LTS of the JDK and stable kotlin version
-   tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-      kotlinOptions {
-         jvmTarget = "17"
-         apiVersion = "1.8"
-         languageVersion = "1.8"
-      }
+   val compileKotlin: KotlinJvmCompile by tasks
+   compileKotlin.compilerOptions {
+      apiVersion.set(KotlinVersion.KOTLIN_1_8)
+      languageVersion.set(KotlinVersion.KOTLIN_1_8)
+      jvmTarget.set(JvmTarget.JVM_17)
    }
 }
