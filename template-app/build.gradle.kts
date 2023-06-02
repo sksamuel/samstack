@@ -7,25 +7,18 @@ dependencies {
    api(projects.templateDatastore)
    api(projects.templateServices)
 
-   api("com.sksamuel.hoplite:hoplite-core:2.7.4")
-   api("com.sksamuel.hoplite:hoplite-yaml:2.7.4")
-   api("com.sksamuel.hoplite:hoplite-aws:2.7.4")
-   api("com.sksamuel.hoplite:hoplite-micrometer-datadog:2.7.4")
+   api(rootProject.deps.bundles.hoplite)
 
-   api("io.micrometer:micrometer-core:1.10.6")
-   api("io.micrometer:micrometer-registry-datadog:1.10.6")
+   api(rootProject.deps.micrometer.core)
+   api(rootProject.deps.micrometer.registry.datadog)
 
    // health checks and info endpoints
-   implementation("com.sksamuel.cohort:cohort-core:1.7.3")
-   implementation("com.sksamuel.cohort:cohort-kafka:1.7.3")
-   implementation("com.sksamuel.cohort:cohort-hikari:1.7.3")
-   implementation("com.sksamuel.cohort:cohort-ktor2:1.7.3")
-   implementation("com.sksamuel.cohort:cohort-micrometer:1.7.3")
+   implementation(rootProject.deps.bundles.cohort)
 }
 
 docker {
    javaApplication {
-      baseImage.set("amazoncorretto:17.0.5-alpine")
+      baseImage.set(rootProject.deps.versions.dockerBaseImage)
       ports.set(listOf(8080))
       mainClassName.set("com.sksamuel.template.app.MainKt")
       // standard JVM flags that use memory settings suitable for containers
