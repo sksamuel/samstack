@@ -214,6 +214,7 @@ dependencyResolutionManagement {
          bundle(
             "logging",
             listOf(
+               "kotlin-logging",
                "log4j-over-slf4j",
                "log4j-layout-template-json",
                "log4j-slf4j2-impl",

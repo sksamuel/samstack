@@ -1,6 +1,6 @@
 package com.sksamuel.template.datastore
 
-import mu.KotlinLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.flywaydb.core.Flyway
 import javax.sql.DataSource
 
