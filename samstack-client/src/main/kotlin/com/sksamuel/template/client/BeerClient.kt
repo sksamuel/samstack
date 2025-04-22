@@ -3,7 +3,7 @@ package com.sksamuel.template.client
 import com.sksamuel.template.myservice.domain.Beer
 import com.sksamuel.template.myservice.domain.JacksonSupport.fromJson
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.apache.Apache
+import io.ktor.client.engine.apache5.Apache5
 import io.ktor.client.plugins.HttpRequestRetry
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.compression.ContentEncoding
@@ -14,7 +14,7 @@ class BeerClient(
    private val config: ClientConfig,
 ) {
 
-   private val client = HttpClient(Apache) {
+   private val client = HttpClient(Apache5) {
       install(ContentEncoding)
       install(HttpTimeout) {
          requestTimeoutMillis = config.requestTimeoutMillis

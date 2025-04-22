@@ -1,4 +1,4 @@
-package com.sksamuel.template.testkit
+package com.sksamuel.template
 
 import com.sksamuel.template.myservice.domain.Iso3Country
 import io.kotest.property.Arb
