@@ -18,7 +18,7 @@ dependencies {
 
 docker {
    javaApplication {
-      baseImage.set("amazoncorretto:17.0.5-alpine")
+      baseImage.set("amazoncorretto:24.0.1-alpine3.21")
       ports.set(listOf(8080))
       mainClassName.set("com.sksamuel.template.app.MainKt")
       jvmArgs.set(
