@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-   api(projects.templateDomain)
+   api(projects.samstackDomain)
    api(libs.micrometer.core)
    api(libs.postgresql)
    api(libs.hikari)

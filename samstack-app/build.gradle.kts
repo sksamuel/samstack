@@ -3,9 +3,9 @@ plugins {
 }
 
 dependencies {
-   api(projects.templateDomain)
-   api(projects.templateDatastore)
-   api(projects.templateServices)
+   api(projects.samstackDomain)
+   api(projects.samstackDatastore)
+   api(projects.samstackServices)
 
    api(libs.bundles.hoplite)
 

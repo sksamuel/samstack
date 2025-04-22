@@ -1,11 +1,11 @@
-rootProject.name = "template"
+rootProject.name = "samstack"
 
 include(
-   ":template-app",
-   ":template-client",
-   ":template-datastore",
-   ":template-domain",
-   ":template-services",
+   ":samstack-app",
+   ":samstack-client",
+   ":samstack-datastore",
+   ":samstack-domain",
+   ":samstack-services",
 )
 
 pluginManagement {

@@ -1,4 +1,4 @@
 dependencies {
-   api(projects.templateDomain)
+   api(projects.samstackDomain)
    implementation(libs.ktor.client.encoding)
 }
