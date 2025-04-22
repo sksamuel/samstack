@@ -3,9 +3,9 @@ plugins {
 }
 
 dependencies {
-   api(rootProject.deps.bundles.jackson)
+//   api(rootProject.deps.bundles.jackson)
 }
 
 dependencies {
-   testFixturesImplementation(rootProject.deps.kotest.property)
+//   testFixturesImplementation(rootProject.deps.kotest.property)
 }

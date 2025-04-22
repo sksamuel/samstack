@@ -3,38 +3,20 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 plugins {
-   alias(deps.plugins.kotlin)
-}
-
-allprojects {
-   repositories {
-      mavenCentral()
-      mavenLocal()
-   }
-}
-
-buildscript {
-   repositories {
-      mavenCentral()
-      mavenLocal()
-   }
+   kotlin("jvm") version "2.1.20"
 }
 
 subprojects {
-   apply(plugin = rootProject.deps.plugins.kotlin.get().pluginId)
+   apply(plugin = "org.jetbrains.kotlin.jvm")
    dependencies {
       with(rootProject) {
-         implementation(deps.bundles.kotlinx.coroutines)
-         implementation(deps.bundles.logging)
-
-         implementation(deps.tabby)
-
-         testImplementation(deps.bundles.kotest)
-         testImplementation(deps.bundles.testcontainers)
+         implementation(libs.bundles.coroutines)
+         implementation(libs.bundles.logging)
+         implementation(libs.tabby)
+         testImplementation(libs.bundles.testing)
       }
    }
    tasks {
-      // configure kotest to run
       test {
          useJUnitPlatform()
          testLogging {
@@ -45,8 +27,8 @@ subprojects {
       }
       withType<KotlinJvmCompile> {
          compilerOptions {
-            apiVersion.set(KotlinVersion.KOTLIN_1_8)
-            languageVersion.set(KotlinVersion.KOTLIN_1_8)
+            apiVersion.set(KotlinVersion.KOTLIN_2_1)
+            languageVersion.set(KotlinVersion.KOTLIN_2_1)
             jvmTarget.set(JvmTarget.JVM_17)
          }
       }
