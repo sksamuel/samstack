@@ -28,6 +28,7 @@ but try to avoid the more advanced FP features that don't translate well to Kotl
    * Use embedded HTTP servers for upstream dependencies.
 * Functional error handling
    * Don't throw exceptions unless it's truly exceptional. Expected errors, such as invalid json, are not exceptional.
+   * Use Kotlin's [Result](https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-result/) structure to capture errors.
 * Avoid interfaces for services and datastores
    * You don't need an interface for your database code. You're not going to need to mock them, and the logic is
      bespoke.
