@@ -24,7 +24,7 @@ but try to avoid the more advanced FP features that don't translate well to Kotl
    * No mocks. Ever. You don't need them (caveat - you might need them in some tiny edge cases, like testing a legacy
      Java interface with 200 methods).
    * Test your endpoints by using a framework that treats requests as simple objects.
-   * Use test containers for real databases.
+   * Use [test containers](https://testcontainers.com/) for real databases.
    * Use embedded HTTP servers for upstream dependencies.
 * Functional error handling
    * Don't throw exceptions unless it's truly exceptional. Expected errors, such as invalid json, are not exceptional.
