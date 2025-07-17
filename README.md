@@ -32,12 +32,13 @@ but try to avoid the more advanced FP features that don't translate well to Kotl
 * Avoid interfaces for services and datastores
    * You don't need an interface for your database code. You're not going to need to mock them, and the logic is
      bespoke.
-   * A good rule of thumb in my opinion is, if you have an implementation of an interface called `MyInterfaceImpl` then
-     you don't need the interface because you have no natural name for the implementation.
-
+   * A good rule of thumb in my opinion is, if you have an implementation of an interface called `MyInterfaceImpl` which indicates
+     you don't have a natural name for the implementation, then the interface is adding overhead for no benefit. Contrast this with
+     the List interface which has natural implementations such as array list and linked list.
 * Avoid ORMs
-   * Unless you have a ton of CRUD to write, it's easier to just write SQL by hand.
-   * Spring JDBC Template is a simple set of helpers around JDBC calls.
+   * Unless your app is entirely CRUD, it's easier to just write SQL by hand as you can do even moderately complex queries without needing a complex SQL DSL.
+   * It's much easier to grab a query from your codebase to test in a database when it's an .sql file than to figure out what a DSL like Jooq is generating for you.
+   * Spring JDBC Template is a simple set of helpers around JDBC calls that will handle injection projection and transaction support and mapping results back to classes without needing to jump through hoops.
 * Don't use Strings for all your types
    * Avoid so called stringy-typed development.
 
