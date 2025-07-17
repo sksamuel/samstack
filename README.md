@@ -49,8 +49,7 @@ but try to avoid the more advanced FP features that don't translate well to Kotl
 ## Libraries
 
 * Kotlin - Running the latest Kotlin release.
-* [ktor](https://ktor.io/) a Jetbrains Kotlin based HTTP framework that natively supports coroutines. Provides
-  http-as-a-function (almost), and a great in-memory test server. Lacks swagger integration.
+* [Verx](https://vertx.io/) a lightning fast HTTP framework that routinely tops the Java performance metrics at TechEmpower. Offers coroutine support for Kotlin integration. Is simple to use and easy to create some scaffolding around to test locally.
 * [Hoplite](https://github.com/sksamuel/hoplite) a Kotlin data-class-as-config loader that provides cascading
   fallback of config files. Config is loaded in regular data classes that you define and can pass about. This allows for
   easy testing, as you can provide test-time values by simply creating instances of those data classes.
@@ -61,15 +60,15 @@ but try to avoid the more advanced FP features that don't translate well to Kotl
   libraries come with Micrometer adapters to collect metrics.
   many/most Java libraries.
 * [Hikari](https://github.com/brettwooldridge/HikariCP) High performance and robust JDBC pooling library. The go-to
-  JVM based connection pool library in 2022.
+  JVM based connection pool library for several years.
 * [Tabby](https://github.com/sksamuel/tabby) - a tiny functional programming accessory kit. Essentially a set of
-  extension functions for `Result` that help fill in the gaps on Result.
-* [Arrow](https://arrow-kt.io/) - a functional programming accessory kit. Useful for resource management.
+  extension functions that helps fill in the gaps on Result.
 * [Kotlin Logging](https://github.com/MicroUtils/kotlin-logging) - a simple project that wraps slf4j but makes it easier
   to define a kotlin logger as a top level function.
 * [Logback](https://logback.qos.ch/) - a simple alternative to log4j.
 * [Cohort](https://github.com/sksamuel/cohort) A spring-actuator style plugin for Ktor. Useful for probes for
   kubernetes services.
+* [Aedile](https://github.com/sksamuel/aedile) A Kotlin wrapper for Caffeine that provides coroutine support. Caffeine has been the goto Java cache for many years.
 * [Tribune](https://github.com/sksamuel/tribune) A validation library for Kotlin that takes the "parse don't
   validate" approach.
 * [TestContainers](https://www.testcontainers.org) Creates disposable containers for tests, so you don't need to mock
