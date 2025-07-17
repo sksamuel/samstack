@@ -49,7 +49,7 @@ but try to avoid the more advanced FP features that don't translate well to Kotl
 ## Libraries
 
 * Kotlin - Running the latest Kotlin release.
-* [Verx](https://vertx.io/) a lightning fast HTTP framework that routinely tops the Java performance metrics at TechEmpower. Offers coroutine support for Kotlin integration. Is simple to use and easy to create some scaffolding around to test locally.
+* [Vert.x](https://vertx.io/) a lightning fast HTTP framework that routinely tops the Java performance metrics at TechEmpower. Offers coroutine support for Kotlin integration. Is simple to use and easy to create some scaffolding around to test locally.
 * [Hoplite](https://github.com/sksamuel/hoplite) a Kotlin data-class-as-config loader that provides cascading
   fallback of config files. Config is loaded in regular data classes that you define and can pass about. This allows for
   easy testing, as you can provide test-time values by simply creating instances of those data classes.
