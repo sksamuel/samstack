@@ -43,7 +43,8 @@ but try to avoid the more advanced FP features that don't translate well to Kotl
 * Don't use Strings for all your types
    * Avoid so called stringy-typed development.
 * Use value objects for extra type safety
-   * You can create `data class Height(val value: Int)` and pass that about. Yes it's another object to be instantiated. No you're never going to see a performance impact because your webapp is spending all its time in IO anyway.
+   * You can create `data class Height(val value: Int)` and pass that about.
+   * Yes it's another object to be instantiated. No you're never going to see a performance impact because your webapp is spending all its time in IO anyway.
 
 ## Libraries
 
