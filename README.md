@@ -12,19 +12,20 @@ but try to avoid the more advanced FP features that don't translate well to Kotl
 ## Opinions
 
 * No dependency injection. You simply do not need it.
-   * It is trivial to pass dependencies through the constructor. Services should be small enough that you don't have
-     layers upon layers of "services" where passing dependencies around becomes a burden.
+   * In Kotlin, it is trivial to pass dependencies through the constructor. Services should be small enough that you don't have
+     a dozen layers of serviceX calling serviceY calling serviceZ, where passing dependencies becomes a layer cake.
    * When you use constructors as they were intended, you never have to try and work out where a "bean" is being
      instantiated.
+   * You'll get a compile error if anything is not wired up. As it should be.
 * Config as data classes.
-   * Easy to test because you can simply create the config values you want in tests and pass in an instance of the data
-     class.
+   * Easy to test because you can simply create an instance of the data class with whatever values you want to use in a test and pass that into the class.
    * No confusion as to where values are being pulled from.
+   * Startup time resolution on mapping config values to strongly typed values.
 * Tests should be real tests
-   * No mocks. Ever. You don't need them (caveat - you might need them in some tiny edge cases, like testing a legacy
-     Java interface with 200 methods).
-   * Test your endpoints by using a framework that treats requests as simple objects.
-   * Use [test containers](https://testcontainers.com/) for real databases.
+   * No mocks. Ever. You don't need them (caveat - ok you might need them in some tiny edge cases, like testing a legacy
+     Java interface with 200 methods when you don't want to create an implementation).
+   * Test your endpoints by using a framework that treats requests as objects.
+   * Use [test containers](https://testcontainers.com/) to test against real infrastructure like postgres, kafka, redis, etc. Then you know your SQL will work instead of mocking it out.
    * Use embedded HTTP servers for upstream dependencies.
 * Functional error handling
    * Don't throw exceptions unless it's truly exceptional. Expected errors, such as invalid json, are not exceptional.
@@ -41,6 +42,8 @@ but try to avoid the more advanced FP features that don't translate well to Kotl
    * Spring JDBC Template is a simple set of helpers around JDBC calls that will handle injection projection and transaction support and mapping results back to classes without needing to jump through hoops.
 * Don't use Strings for all your types
    * Avoid so called stringy-typed development.
+* Use value objects for extra type safety
+   * You can create `data class Height(val value: Int)` and pass that about. Yes it's another object to be instantiated. No you're never going to see a performance impact because your webapp is spending all its time in IO anyway.
 
 ## Libraries
 
